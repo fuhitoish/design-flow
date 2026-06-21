@@ -1,0 +1,37 @@
+================================================================================
+project/project-index.txt — プロジェクト台帳（最初にコピーして使う）
+================================================================================
+プロジェクト名    :
+クライアント / ブランド :
+制作物種別        : [ ] A パンフ  [ ] B Web  [ ] C ポスター  [ ] D バナー
+開始日            : YYYY-MM-DD
+納期              : YYYY-MM-DD
+担当              :
+ステータス        : core_1 / core_2 / core_3 / core_4 / module / gate / production / done
+
+■ このプロジェクトのファイル一覧（記入例）
+
+  コア:
+    core/step-1-requirements/  → 01-requirements.txt
+    core/step-2-research/      → 02-research.txt
+    core/step-3-content-lock/  → 03-content-lock.txt + copy-master.txt
+    core/step-4-visual-foundation/ → 04-visual.txt + 4-1〜4-4
+
+  モジュール（1つのみ）:
+    modules/module-A-pamphlet/ 等 → 05-module.txt
+
+  ゲート・制作:
+    gate/final-gate.txt         → 06-gate.txt
+    production/step-6-production.txt → 07-production.txt
+
+■ 進捗サマリー
+
+  [ ] Step 1 要件定義
+  [ ] Step 2 リサーチ・戦略
+  [ ] Step 3 原稿ロック
+  [ ] Step 4 ビジュアル・ファウンデーション
+  [ ] Step 5 モジュール（制作物別）
+  [ ] 最終ゲート
+  [ ] Step 6 制作・納品
+
+メモ:
