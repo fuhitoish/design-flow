@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Flow — デザイン制作フローガイド</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --text: #1a2234;
+      --text-muted: #5c677d;
+      --border: #e2e8f0;
+      --core: #3b5bdb;
+      --core-light: #edf2ff;
+      --gate: #e67700;
+      --gate-light: #fff4e6;
+      --mod-a: #0ca678;
+      --mod-b: #7048e8;
+      --mod-c: #f76707;
+      --mod-d: #e64980;
+      --prod: #2b8a3e;
+      --prod-light: #ebfbee;
+      --bad: #fa5252;
+      --bad-light: #fff5f5;
+      --good: #40c057;
+      --good-light: #ebfbee;
+      --shadow: 0 4px 24px rgba(26, 34, 52, 0.08);
+      --radius: 16px;
+      --nav-w: 240px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--nav-w) 1fr;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      overflow-y: auto;
+    }
+
+    nav .logo {
+      font-family: "DM Sans", sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--core);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
+    }
+
+    nav ul { list-style: none; }
+    nav li { margin-bottom: 0.15rem; }
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.15s, color 0.15s;
+    }
+    nav a:hover, nav a.active {
+      background: var(--core-light);
+      color: var(--core);
+    }
+
+    main { padding: 2rem 2.5rem 4rem; max-width: 960px; }
+
+    section { margin-bottom: 4rem; scroll-margin-top: 1.5rem; }
+
+    h1 {
+      font-family: "DM Sans", sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+    .badge-core { background: var(--core-light); color: var(--core); }
+    .badge-gate { background: var(--gate-light); color: var(--gate); }
+    .badge-prod { background: var(--prod-light); color: var(--prod); }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #364fc7 0%, #5c7cfa 50%, #748ffc 100%);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      color: #fff;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .hero h1 { color: #fff; font-size: 1.85rem; }
+    .hero .lead { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+
+    /* ── Compare cards ── */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .compare-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid;
+    }
+    .compare-card.bad { border-color: var(--bad); }
+    .compare-card.good { border-color: var(--good); }
+    .compare-card .label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .compare-card.bad .label { color: var(--bad); }
+    .compare-card.good .label { color: var(--good); }
+
+    .flow-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+    .flow-mini .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+    .flow-mini .arrow {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    /* ── Architecture diagram ── */
+    .arch-diagram {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .arch-core {
+      background: linear-gradient(135deg, var(--core-light), #dbe4ff);
+      border: 2px solid var(--core);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .arch-core-title {
+      font-weight: 700;
+      color: var(--core);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .arch-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .arch-step {
+      background: var(--surface);
+      border: 1px solid var(--core);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--core);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .arch-step.gate-step {
+      border-color: var(--gate);
+      color: var(--gate);
+      background: var(--gate-light);
+    }
+
+    .arch-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      gap: 0.25rem;
+    }
+    .arch-connector svg { color: var(--core); }
+
+    .arch-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .arch-mod {
+      border-radius: 10px;
+      padding: 0.85rem 0.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .arch-mod.a { background: var(--mod-a); }
+    .arch-mod.b { background: var(--mod-b); }
+    .arch-mod.c { background: var(--mod-c); }
+    .arch-mod.d { background: var(--mod-d); }
+
+    .arch-prod {
+      margin-top: 0.75rem;
+      background: var(--prod-light);
+      border: 2px solid var(--prod);
+      border-radius: 10px;
+      padding: 0.85rem;
+      text-align: center;
+      font-weight: 700;
+      color: var(--prod);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Principles ── */
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .principle {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .principle-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      background: var(--core-light);
+      color: var(--core);
+    }
+    .principle p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+      border-left: 5px solid var(--core);
+    }
+    .step-card.gate { border-left-color: var(--gate); }
+    .step-card-header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--core-light);
+      color: var(--core);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-card.gate .step-num {
+      background: var(--gate-light);
+      color: var(--gate);
+    }
+    .step-card-header .meta { flex: 1; }
+    .step-card-header .purpose {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+    .step-card-header .chevron {
+      color: var(--text-muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+    .step-card.open .chevron { transform: rotate(180deg); }
+
+    .step-card-body {
+      display: none;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .step-card.open .step-card-body { display: block; padding-top: 1.25rem; }
+
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .checklist li strong { color: var(--text); }
+
+    .gate-banner {
+      background: var(--gate-light);
+      border: 1px solid #ffc078;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #d9480f;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .sub-section {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 10px;
+    }
+    .sub-section h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--core);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Module cards ── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .module-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .module-card-header {
+      padding: 1.25rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .module-card-header.a { background: var(--mod-a); }
+    .module-card-header.b { background: var(--mod-b); }
+    .module-card-header.c { background: var(--mod-c); }
+    .module-card-header.d { background: var(--mod-d); }
+    .module-card-header h3 { color: #fff; margin: 0; font-size: 1rem; }
+    .module-card-header .mod-label {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+    .module-card-body { padding: 1.25rem; }
+    .module-card-body .focus {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    /* ── Production ── */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .prod-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .prod-box.do { border-top: 4px solid var(--good); }
+    .prod-box.dont { border-top: 4px solid var(--bad); }
+    .prod-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+    .prod-box.do h3 { color: var(--good); }
+    .prod-box.dont h3 { color: var(--bad); }
+    .prod-box ul {
+      list-style: none;
+      font-size: 0.88rem;
+    }
+    .prod-box ul li {
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .prod-box.do ul li::before { content: "✓"; position: absolute; left: 0; color: var(--good); font-weight: 700; }
+    .prod-box.dont ul li::before { content: "✕"; position: absolute; left: 0; color: var(--bad); font-weight: 700; }
+
+    /* ── Final gate ── */
+    .final-gate {
+      background: linear-gradient(135deg, #2b8a3e, #40c057);
+      border-radius: var(--radius);
+      padding: 2rem;
+      color: #fff;
+    }
+    .final-gate h2 { color: #fff; }
+    .final-gate .checklist li {
+      color: rgba(255,255,255,0.95);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .final-gate .checklist li::before {
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.1);
+    }
+    .final-gate .verdict {
+      margin-top: 1.25rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── Timeline illustration ── */
+    .timeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+    .timeline-block {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      position: relative;
+    }
+    .timeline-block .bar {
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-block .bar.plan { background: var(--core); }
+    .timeline-block .bar.make { background: var(--prod); }
+    .timeline-block .bar.rework { background: var(--bad); }
+    .timeline-block .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-block .days {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .timeline-vs {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+      }
+      nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      main { padding: 1.5rem 1rem 3rem; }
+      .compare, .modules-grid, .prod-grid, .arch-modules {
+        grid-template-columns: 1fr;
+      }
+      .arch-modules { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 1.6rem; }
+    }
+
+    /* Illustration: person at desk */
+    .illus-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="logo">
+        <i data-lucide="layers" style="width:20px;height:20px"></i>
+        Design Flow
+      </div>
+      <ul>
+        <li><a href="#overview"><i data-lucide="home" style="width:16px;height:16px"></i> 概要</a></li>
+        <li><a href="#why"><i data-lucide="lightbulb" style="width:16px;height:16px"></i> なぜ必要か</a></li>
+        <li><a href="#architecture"><i data-lucide="git-branch" style="width:16px;height:16px"></i> 全体像</a></li>
+        <li><a href="#principles"><i data-lucide="shield" style="width:16px;height:16px"></i> 設計原則</a></li>
+        <li><a href="#core"><i data-lucide="cpu" style="width:16px;height:16px"></i> コア Step 1–4</a></li>
+        <li><a href="#modules"><i data-lucide="puzzle" style="width:16px;height:16px"></i> モジュール</a></li>
+        <li><a href="#production"><i data-lucide="pen-tool" style="width:16px;height:16px"></i> 制作 Step 6</a></li>
+        <li><a href="#gate"><i data-lucide="check-circle" style="width:16px;height:16px"></i> 最終ゲート</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Hero -->
+      <section id="overview">
+        <div class="hero">
+          <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;margin-bottom:1rem">v1.0 本プラン準拠</span>
+          <h1>計画で決め切る、<br>デザイン制作フロー</h1>
+          <p class="lead">制作に入る前に「何を・どう作るか」を完全に見える状態にする。<br>手戻りのない、再現性のあるデザインプロセス。</p>
+        </div>
+        <p class="lead">パンフレット・Web・ポスター・バナーなど、あらゆる単一制作物に適用できる<strong>「コア ＋ 着せ替えモジュール」</strong>型のワークフローです。</p>
+      </section>
+
+      <!-- Why -->
+      <section id="why">
+        <h2><i data-lucide="arrow-left-right" style="width:24px;height:24px;color:var(--core)"></i> なぜこのフローが必要か</h2>
+        <div class="compare">
+          <div class="compare-card bad">
+            <div class="label"><i data-lucide="alert-triangle" style="width:18px;height:18px"></i> 従来のやり方</div>
+            <div class="flow-mini">
+              <div class="step"><i data-lucide="file-question" style="width:16px;height:16px;color:var(--bad)"></i> 曖昧な要件のまま制作開始</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="pen-tool" style="width:16px;height:16px;color:var(--bad)"></i> Illustrator で試作</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="refresh-cw" style="width:16px;height:16px;color:var(--bad)"></i> 「イメージと違う」「文字が入らない」</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="clock" style="width:16px;height:16px;color:var(--bad)"></i> 手戻り 3〜5 日</div>
+            </div>
+          </div>
+          <div class="compare-card good">
+            <div class="label"><i data-lucide="check-circle" style="width:18px;height:18px"></i> Design Flow</div>
+            <div class="flow-mini">
+              <div class="step"><i data-lucide="clipboard-list" style="width:16px;height:16px;color:var(--good)"></i> 計画段階で全部決定</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="lock" style="width:16px;height:16px;color:var(--good)"></i> 原稿・色・フォント・構成をロック</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="pen-tool" style="width:16px;height:16px;color:var(--good)"></i> 制作開始（決定に従うだけ）</div>
+              <div class="arrow">↓</div>
+              <div class="step"><i data-lucide="sparkles" style="width:16px;height:16px;color:var(--good)"></i> イメージズレなし・手戻りほぼなし</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline comparison -->
+        <div style="background:var(--surface);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)">
+          <h3 style="margin-bottom:1rem;font-size:0.95rem">所要時間のイメージ（仮説）</h3>
+          <div style="margin-bottom:1.25rem">
+            <div style="font-size:0.8rem;font-weight:700;color:var(--bad);margin-bottom:0.5rem">従来：合計 4〜6 日</div>
+            <div class="timeline">
+              <div class="timeline-block"><div class="bar plan" style="opacity:0.5"></div><div class="label">計画</div><div class="days">1日（曖昧）</div></div>
+              <div class="timeline-block"><div class="bar make"></div><div class="label">制作</div><div class="days">2〜3日</div></div>
+              <div class="timeline-block"><div class="bar rework"></div><div class="label">手戻り</div><div class="days">3〜5日</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.8rem;font-weight:700;color:var(--good);margin-bottom:0.5rem">Design Flow：合計 8〜12 日（手戻り込み）</div>
+            <div class="timeline">
+              <div class="timeline-block"><div class="bar plan"></div><div class="label">計画</div><div class="days">5〜8日</div></div>
+              <div class="timeline-block"><div class="bar make" style="background:var(--prod)"></div><div class="label">制作</div><div class="days">2〜3日</div></div>
+              <div class="timeline-block"><div class="bar rework" style="opacity:0.15"></div><div class="label">手戻り</div><div class="days">ほぼなし</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section id="architecture">
+        <h2><i data-lucide="git-branch" style="width:24px;height:24px;color:var(--core)"></i> 全体像：コア ＋ モジュール</h2>
+        <p class="lead" style="margin-bottom:1.5rem">すべての案件で共通の<strong>コア（Step 1〜4）</strong>を通ったあと、制作物の種類に応じた<strong>モジュール（Step 5）</strong>が合流し、最後に<strong>制作（Step 6）</strong>へ進みます。</p>
+
+        <div class="arch-diagram">
+          <div class="arch-core">
+            <div class="arch-core-title"><i data-lucide="cpu" style="width:18px;height:18px"></i> コア — 全案件共通（制作前に完全ロック）</div>
+            <div class="arch-steps">
+              <div class="arch-step"><i data-lucide="target" style="width:14px;height:14px"></i> Step 1 要件定義</div>
+              <div class="arch-step"><i data-lucide="search" style="width:14px;height:14px"></i> Step 2 リサーチ</div>
+              <div class="arch-step gate-step"><i data-lucide="lock" style="width:14px;height:14px"></i> Step 3 原稿ロック</div>
+              <div class="arch-step"><i data-lucide="palette" style="width:14px;height:14px"></i> Step 4 トンマナ</div>
+            </div>
+          </div>
+
+          <div class="arch-connector">
+            <i data-lucide="chevron-down" style="width:20px;height:20px"></i>
+            Step 1 で制作物の種類を選択
+            <i data-lucide="chevron-down" style="width:20px;height:20px"></i>
+          </div>
+
+          <div class="arch-modules">
+            <div class="arch-mod a"><i data-lucide="book-open" style="width:22px;height:22px"></i> A パンフレット</div>
+            <div class="arch-mod b"><i data-lucide="monitor" style="width:22px;height:22px"></i> B Web・LP</div>
+            <div class="arch-mod c"><i data-lucide="image" style="width:22px;height:22px"></i> C ポスター</div>
+            <div class="arch-mod d"><i data-lucide="smartphone" style="width:22px;height:22px"></i> D バナー・SNS</div>
+          </div>
+
+          <div class="arch-connector">
+            <i data-lucide="chevron-down" style="width:20px;height:20px"></i>
+            最終ゲート通過
+          </div>
+
+          <div class="arch-prod">
+            <i data-lucide="pen-tool" style="width:20px;height:20px"></i>
+            Step 6 制作・実装（決定に従うのみ）
+          </div>
+        </div>
+
+        <!-- SVG illustration -->
+        <div class="illus-wrap">
+          <svg viewBox="0 0 480 120" width="100%" max-width="480" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#364fc7"/>
+                <stop offset="100%" stop-color="#748ffc"/>
+              </linearGradient>
+            </defs>
+            <!-- Core box -->
+            <rect x="10" y="30" width="130" height="60" rx="10" fill="url(#g1)" opacity="0.9"/>
+            <text x="75" y="55" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Noto Sans JP,sans-serif">コア</text>
+            <text x="75" y="72" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="9" font-family="Noto Sans JP,sans-serif">Step 1–4</text>
+            <!-- Arrow -->
+            <path d="M145 60 H175" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrow)"/>
+            <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#adb5bd"/></marker></defs>
+            <!-- Module boxes -->
+            <rect x="180" y="15" width="60" height="35" rx="6" fill="#0ca678"/>
+            <text x="210" y="37" text-anchor="middle" fill="#fff" font-size="8" font-family="Noto Sans JP,sans-serif">パンフ</text>
+            <rect x="180" y="55" width="60" height="35" rx="6" fill="#7048e8"/>
+            <text x="210" y="77" text-anchor="middle" fill="#fff" font-size="8" font-family="Noto Sans JP,sans-serif">Web</text>
+            <rect x="250" y="15" width="60" height="35" rx="6" fill="#f76707"/>
+            <text x="280" y="37" text-anchor="middle" fill="#fff" font-size="8" font-family="Noto Sans JP,sans-serif">ポスター</text>
+            <rect x="250" y="55" width="60" height="35" rx="6" fill="#e64980"/>
+            <text x="280" y="77" text-anchor="middle" fill="#fff" font-size="8" font-family="Noto Sans JP,sans-serif">バナー</text>
+            <!-- Arrow to prod -->
+            <path d="M320 60 H360" stroke="#adb5bd" stroke-width="2" marker-end="url(#arrow)"/>
+            <!-- Production -->
+            <rect x="365" y="30" width="105" height="60" rx="10" fill="#2b8a3e"/>
+            <text x="417" y="55" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Noto Sans JP,sans-serif">制作</text>
+            <text x="417" y="72" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="9" font-family="Noto Sans JP,sans-serif">Step 6</text>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Principles -->
+      <section id="principles">
+        <h2><i data-lucide="shield" style="width:24px;height:24px;color:var(--core)"></i> 5つの設計原則</h2>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="puzzle" style="width:20px;height:20px"></i></div>
+            <h3>コア ＋ モジュール</h3>
+            <p>共通の根幹に、制作物別の専用プロセスを着せ替える。無駄なく、漏れなく。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon" style="background:var(--gate-light);color:var(--gate)"><i data-lucide="lock" style="width:20px;height:20px"></i></div>
+            <h3>原稿ロック関門</h3>
+            <p>ダミーテキストでのデザイン進行を禁止。実原稿確定後にレイアウトへ。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="message-square" style="width:20px;height:20px"></i></div>
+            <h3>理由の記録</h3>
+            <p>色・フォント・レイアウトの各決定に理由を残し、ブランド資産として蓄積。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="undo-2" style="width:20px;height:20px"></i></div>
+            <h3>遡及を許容</h3>
+            <p>矛盾が見つかったら該当 Step に戻る。失敗ではなく正常なフロー。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="book-marked" style="width:20px;height:20px"></i></div>
+            <h3>既存ブランド例外</h3>
+            <p>ガイドラインがあるブランドは Step 4 を適用・スキップ選択可。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Steps -->
+      <section id="core">
+        <h2><i data-lucide="cpu" style="width:24px;height:24px;color:var(--core)"></i> コア・フロー（Step 1〜4）</h2>
+        <p class="lead" style="margin-bottom:1.5rem">制作物の種類に関わらず、<strong>制作に入る前に完全ロック</strong>する根幹プロセス。各 Step のゲートをすべてクリアしてから次へ進みます。</p>
+
+        <!-- Step 1 -->
+        <div class="step-card open">
+          <div class="step-card-header" onclick="toggleStep(this)">
+            <div class="step-num">1</div>
+            <div class="meta">
+              <h3>プロジェクト要件（目的とターゲット）</h3>
+              <div class="purpose"><i data-lucide="target" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 「何のため・誰に・どんな制約で作るか」を明確にする</div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
+          </div>
+          <div class="step-card-body">
+            <ul class="checklist">
+              <li>プロジェクト名・制作背景・最終ゴール（1〜2文）</li>
+              <li>ターゲット層の明確化（ペルソナ：年代・職業・課題・価値観）</li>
+              <li><strong>制作物の種類の選択</strong>（後続モジュールを決定）</li>
+              <li>媒体・仕様の初期確定（未確定は「要確認」と記録）</li>
+              <li>必須掲載要素のリストアップと優先順位（1〜3）</li>
+              <li>制約・ルール（使わない色・避けるトーン・参考にしない競合）</li>
+              <li>ビジュアル参考画像 3〜5 枚</li>
+            </ul>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--core);font-weight:600">→ すべてチェックで Step 2 へ</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-card-header" onclick="toggleStep(this)">
+            <div class="step-num">2</div>
+            <div class="meta">
+              <h3>リサーチ・戦略分析</h3>
+              <div class="purpose"><i data-lucide="search" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> ターゲット・競合・トレンドを理解し、表現の土台を作る</div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
+          </div>
+          <div class="step-card-body">
+            <ul class="checklist">
+              <li>ペルソナの深堀り（Step 1 より詳しい理解を 3〜5 点抽出）</li>
+              <li>競合・参考企業 5〜10 社のビジュアル分析（色・フォント・トーン・レイアウト）</li>
+              <li>「我々がやってはいけないこと」の明文化</li>
+              <li>トレンド調査（取り入れる／無視するの判断含む）</li>
+              <li>インスピレーション画像 20〜30 枚以上</li>
+            </ul>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--core);font-weight:600">→ すべてチェックで Step 3 へ</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card gate">
+          <div class="step-card-header" onclick="toggleStep(this)">
+            <div class="step-num">3</div>
+            <div class="meta">
+              <h3>コンテンツの完全ロック（原稿と素材） <span class="badge badge-gate">最重要関門</span></h3>
+              <div class="purpose"><i data-lucide="lock" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 手戻り最大原因「原稿・素材の未確定」をここで終わらせる</div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
+          </div>
+          <div class="step-card-body">
+            <div class="gate-banner">
+              <i data-lucide="alert-circle" style="width:18px;height:18px;flex-shrink:0"></i>
+              ダミーテキストでのレイアウト設計・デザイン進行は<strong>禁止</strong>
+            </div>
+            <ul class="checklist">
+              <li>キーメッセージの策定（1〜2文。以降すべての判断基準）</li>
+              <li>ビジュアル方向性の決定（形容詞 2〜3 個 + ムードボード 3〜5 枚）</li>
+              <li>キーワード 3〜5 個の抽出</li>
+              <li>必須掲載要素ごとの <strong>実原稿（テキストデータ）</strong> の確定</li>
+              <li>支給画像・必須ロゴなど素材の確保</li>
+              <li>テキスト量と各セクションの文字数見積もり</li>
+            </ul>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--gate);font-weight:600">→ 実原稿・素材が揃い、キーメッセージが言語化されている → Step 4 へ</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-card-header" onclick="toggleStep(this)">
+            <div class="step-num">4</div>
+            <div class="meta">
+              <h3>ビジュアル・ファウンデーション（基本トンマナ）</h3>
+              <div class="purpose"><i data-lucide="palette" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 色・フォント・画像方向・グリッド・余白を確定。以降は変更しない</div>
+            </div>
+            <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
+          </div>
+          <div class="step-card-body">
+            <div class="sub-section">
+              <h4><i data-lucide="droplets" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 4-1 カラーパレット</h4>
+              <ul class="checklist">
+                <li>メイン・サブ・アクセント・ニュートラルの決定</li>
+                <li>RGB / CMYK 両値 + 各色の理由づけ</li>
+                <li>Illustrator 等での色見本作成</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h4><i data-lucide="type" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 4-2 タイポグラフィ</h4>
+              <ul class="checklist">
+                <li>見出し・本文フォントの決定</li>
+                <li>サイズ階層（h1 / h2 / h3 / 本文 / キャプション）</li>
+                <li>和文・洋文・数字混在の表示確認</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h4><i data-lucide="image" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 4-3 画像・ビジュアル方向</h4>
+              <ul class="checklist">
+                <li>画像タイプ（写真 / イラスト / グラフィック）の決定</li>
+                <li>色・雰囲気・トーンの言語化 + 参考画像 5〜10 枚</li>
+              </ul>
+            </div>
+            <div class="sub-section">
+              <h4><i data-lucide="grid-3x3" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 4-4 グリッド・余白</h4>
+              <ul class="checklist">
+                <li>グリッドシステム（印刷: マージン・段組 / Web: 列数・BP・ガター）</li>
+                <li>ホワイトスペースの戦略（1〜2段落で言語化）</li>
+              </ul>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--core);font-weight:600">→ 曖昧な項目ゼロ → モジュール（Step 5）へ</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modules -->
+      <section id="modules">
+        <h2><i data-lucide="puzzle" style="width:24px;height:24px;color:var(--core)"></i> 着せ替えモジュール（Step 5）</h2>
+        <p class="lead" style="margin-bottom:1.5rem">Step 1 で選んだ制作物種別に応じ、<strong>1 モジュールのみ</strong>を適用します。</p>
+
+        <div class="modules-grid">
+          <div class="module-card">
+            <div class="module-card-header a">
+              <i data-lucide="book-open" style="width:28px;height:28px"></i>
+              <div>
+                <div class="mod-label">モジュール A</div>
+                <h3>印刷物・パンフレット</h3>
+              </div>
+            </div>
+            <div class="module-card-body">
+              <p class="focus">物理制約とページものの情報設計に特化</p>
+              <ul class="checklist">
+                <li>仕様確定（サイズ・ページ数・用紙・折り・加工）</li>
+                <li>台割設計（全ページの役割と原稿割り当て）</li>
+                <li>ワイヤーフレーム（紙面・実寸グリッド）</li>
+                <li>画像スペース指定</li>
+                <li>Step 4 の適用確認</li>
+                <li>入稿前確認（CMYK・塗り足し・トンボ）</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card-header b">
+              <i data-lucide="monitor" style="width:28px;height:28px"></i>
+              <div>
+                <div class="mod-label">モジュール B</div>
+                <h3>Web サイト・LP</h3>
+              </div>
+            </div>
+            <div class="module-card-body">
+              <p class="focus">画面可変性とインタラクションに特化</p>
+              <ul class="checklist">
+                <li>仕様確定（BP・CMS・動作環境・主要機能）</li>
+                <li>情報設計（サイトマップ・導線）</li>
+                <li>ワイヤーフレーム（各 BP での配置・並び替え）</li>
+                <li>インタラクション設計（ホバー・メニュー・フォーム）</li>
+                <li>CMS 仕様（該当時）</li>
+                <li>Step 4 の適用確認</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card-header c">
+              <i data-lucide="image" style="width:28px;height:28px"></i>
+              <div>
+                <div class="mod-label">モジュール C</div>
+                <h3>ポスター・単一広告</h3>
+              </div>
+            </div>
+            <div class="module-card-body">
+              <p class="focus">一瞬の視認性と設置環境に特化</p>
+              <ul class="checklist">
+                <li>仕様確定（掲出場所・サイズ・縦横比）</li>
+                <li>環境シミュレーション（遠距離視認性・コントラスト）</li>
+                <li>視線誘導設計（Z の法則・メインコピー配置）</li>
+                <li>ワイヤーフレーム（実寸・原稿収まり確認）</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-card-header d">
+              <i data-lucide="smartphone" style="width:28px;height:28px"></i>
+              <div>
+                <div class="mod-label">モジュール D</div>
+                <h3>バナー・SNS 画像</h3>
+              </div>
+            </div>
+            <div class="module-card-body">
+              <p class="focus">狭小面積での情報伝達と媒体制約に特化</p>
+              <ul class="checklist">
+                <li>仕様確定（プラットフォームサイズ・容量上限）</li>
+                <li>セーフゾーン確認（UI 被りエリア）</li>
+                <li>要素の断捨離（原稿を極限まで削る）</li>
+                <li>ワイヤーフレーム（媒体別レイアウト）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Production -->
+      <section id="production">
+        <h2><i data-lucide="pen-tool" style="width:24px;height:24px;color:var(--prod)"></i> 制作・実装（Step 6）</h2>
+        <p class="lead" style="margin-bottom:1.5rem">Step 5 で確定した設計に従い、Illustrator / InDesign / HTML・CSS 等で実装します。</p>
+        <div class="prod-grid">
+          <div class="prod-box do">
+            <h3><i data-lucide="check" style="width:18px;height:18px"></i> やること</h3>
+            <ul>
+              <li>確定レイアウト・原稿・素材の配置</li>
+              <li>Step 4 のカラー・タイポグラフィの適用</li>
+              <li>細部調整（字詰め・色微調整・折り等）</li>
+              <li>納品ファイルの作成（PDF / 入稿 / 公開）</li>
+            </ul>
+          </div>
+          <div class="prod-box dont">
+            <h3><i data-lucide="x" style="width:18px;height:18px"></i> やらないこと</h3>
+            <ul>
+              <li>大幅なレイアウト変更</li>
+              <li>色・フォントの根本的な変更</li>
+              <li>ページ／セクション構成の変更</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:1rem;font-size:0.88rem;color:var(--text-muted);padding:1rem;background:var(--surface);border-radius:10px;box-shadow:var(--shadow)">
+          <i data-lucide="info" style="width:16px;height:16px;display:inline;vertical-align:-3px;color:var(--core)"></i>
+          上記が必要になった場合は <strong>Step 5（または該当コア Step）の詰め不足</strong> と判断。制作を止めて遡及する。
+        </p>
+      </section>
+
+      <!-- Final Gate -->
+      <section id="gate">
+        <div class="final-gate">
+          <h2><i data-lucide="check-circle" style="width:24px;height:24px"></i> 最終ゲート — 「完全に見えている状態」か？</h2>
+          <p style="opacity:0.9;margin-bottom:1.25rem;font-size:0.95rem">モジュール完了後、制作（Step 6）に進む前に以下をすべて YES にしてください。</p>
+          <ul class="checklist">
+            <li>キーメッセージを自分で述べられる</li>
+            <li>ターゲット層について具体的に話せる</li>
+            <li>各色・フォントについて理由を述べられる</li>
+            <li>ページ／セクションごとの「役割」を説明できる</li>
+            <li>仕様変更の質問に、設計理由で答えられる</li>
+            <li>実装を「ほぼ想像」できる（制作開始時の迷いがない）</li>
+          </ul>
+          <div class="verdict">
+            ✅ すべて YES → 制作ステップへ進行可能<br>
+            ❌ 1 つでも NO → 該当 Step に遡及
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Design Flow v1.0 — 正本: <code>DOCS/PLAN.md</code><br>
+        このガイドは本プランに基づくビジュアル説明ドキュメントです。
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function toggleStep(header) {
+      const card = header.closest('.step-card');
+      card.classList.toggle('open');
+    }
+
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
