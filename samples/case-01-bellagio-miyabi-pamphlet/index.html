@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サンプル案件 — Bellagio Miyabi パンフレット</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --bg: #eae8e3;
+      --surface: #fff;
+      --text: #1a1a1a;
+      --muted: #5c677d;
+      --border: #ddd8cf;
+      --core: #3b5bdb;
+      --core-light: #edf2ff;
+      --mod: #0ca678;
+      --mod-light: #ebfbee;
+      --gate: #2b8a3e;
+      --gate-light: #ebfbee;
+      --warn: #e67700;
+      --warn-light: #fff4e6;
+      --miyabi: #2D4A3E;
+      --miyabi-light: #3d6354;
+      --gold: #B8975A;
+      --cream: #F5F0E8;
+      --shadow: 0 8px 32px rgba(0,0,0,0.1);
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── Shell ── */
+    .top-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-bar a {
+      color: var(--core);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .top-bar .badge {
+      font-size: 0.72rem;
+      background: var(--warn-light);
+      color: var(--warn);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+    h1 {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.35rem;
+    }
+    h2 {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .lead { color: var(--muted); margin-bottom: 2rem; max-width: 640px; }
+
+    section { margin-bottom: 3rem; scroll-margin-top: 4rem; }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Progress stepper ── */
+    .stepper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 2rem;
+    }
+    .step-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .step-pill.done {
+      border-color: var(--gate);
+      background: var(--gate-light);
+      color: var(--gate);
+    }
+    .step-pill.current {
+      border-color: var(--warn);
+      background: var(--warn-light);
+      color: var(--warn);
+    }
+    .step-pill .num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: currentColor;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+    }
+    .step-pill.done .num, .step-pill.current .num { background: inherit; color: inherit; border: 2px solid currentColor; }
+
+    /* ── Grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Persona ── */
+    .persona {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .persona-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--miyabi), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.8rem; flex-shrink: 0;
+    }
+    .persona dl { font-size: 0.88rem; }
+    .persona dt { font-weight: 700; color: var(--miyabi); margin-top: 0.5rem; }
+    .persona dt:first-child { margin-top: 0; }
+
+    /* ── Key message ── */
+    .key-msg {
+      background: var(--miyabi);
+      color: #fff;
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      text-align: center;
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.35rem;
+      line-height: 1.6;
+      position: relative;
+      overflow: hidden;
+    }
+    .key-msg::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    /* ── Colors ── */
+    .swatches { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .swatch {
+      flex: 1; min-width: 100px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .swatch-color { height: 64px; }
+    .swatch-info { padding: 0.5rem 0.65rem; font-size: 0.75rem; background: var(--surface); }
+    .swatch-info strong { display: block; font-size: 0.8rem; }
+
+    /* ── Type preview ── */
+    .type-preview { background: var(--cream); padding: 1.5rem; border-radius: var(--radius); }
+    .type-preview .h1-demo {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--miyabi);
+      margin-bottom: 0.5rem;
+    }
+    .type-preview .h2-demo {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    .type-preview .body-demo {
+      font-size: 0.85rem;
+      line-height: 1.75;
+    }
+    .type-meta {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+    }
+
+    /* ── Page map strip ── */
+    .page-strip {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.5rem 0 1rem;
+    }
+    .page-thumb {
+      flex: 0 0 100px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .page-thumb:hover { transform: translateY(-4px); }
+    .page-thumb.active .page-frame { outline: 3px solid var(--core); outline-offset: 2px; }
+    .page-frame {
+      aspect-ratio: 210/297;
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      font-size: 0.55rem;
+      position: relative;
+    }
+    .page-label {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 0.35rem;
+      color: var(--muted);
+    }
+    .page-thumb.active .page-label { color: var(--core); }
+
+    /* Mini page interiors */
+    .pg-cover {
+      background: var(--miyabi);
+      color: #fff;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      text-align: center;
+      border-top: 2px solid var(--gold);
+    }
+    .pg-cover .catch {
+      font-family: "Noto Serif JP", serif;
+      font-size: 0.5rem;
+      line-height: 1.4;
+    }
+    .pg-cream {
+      background: var(--cream);
+      height: 100%;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pg-cream .bar { background: var(--miyabi); height: 3px; width: 40%; margin-bottom: 4px; }
+    .pg-photo {
+      background: linear-gradient(135deg, #4a5d52 0%, #2a3d32 100%);
+      flex: 1;
+      border-radius: 2px;
+      margin: 3px 0;
+      min-height: 30%;
+    }
+    .pg-lines {
+      height: 2px; background: #ccc; margin: 2px 0; border-radius: 1px;
+    }
+
+    /* ── Wireframe detail ── */
+    .wf-detail {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .wf-detail.show { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .wf-canvas {
+      max-width: 420px;
+      margin: 0 auto;
+      aspect-ratio: 210/297;
+      background: var(--cream);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .wf-canvas.spread {
+      max-width: 100%;
+      aspect-ratio: 420/297;
+    }
+    .wf-tag {
+      position: absolute;
+      top: -10px; left: 12px;
+      background: var(--core);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .wf-block {
+      border: 1px dashed #999;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.5rem;
+    }
+    .wf-block.photo { background: #c5d0c8; border-style: solid; border-color: var(--miyabi); }
+    .wf-block.text { background: rgba(255,255,255,0.6); align-items: flex-start; justify-content: flex-start; text-align: left; color: var(--text); font-size: 0.68rem; line-height: 1.5; }
+    .wf-block.head { font-family: "Noto Serif JP", serif; font-weight: 500; color: var(--miyabi); border-color: var(--gold); }
+
+    .wf-cover-full {
+      background: var(--miyabi);
+      color: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-top: 3px solid var(--gold);
+    }
+    .wf-cover-full .catch {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1rem;
+      text-align: center;
+      line-height: 1.5;
+      padding: 0 1rem;
+    }
+
+    /* ── Copy panel ── */
+    .copy-panel {
+      border-left: 4px solid var(--miyabi);
+      padding-left: 1rem;
+    }
+    .copy-panel h3 {
+      font-family: "Noto Serif JP", serif;
+      color: var(--miyabi);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .copy-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .copy-body { font-size: 0.9rem; }
+
+    /* ── Retro log ── */
+    .retro-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .retro-date { font-weight: 700; color: var(--warn); min-width: 4rem; }
+    .retro-flow { color: var(--muted); font-size: 0.8rem; }
+
+    /* ── Gate ── */
+    .gate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+    .gate-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: var(--gate-light);
+      border-radius: 10px;
+      font-size: 0.85rem;
+    }
+    .gate-item svg { color: var(--gate); flex-shrink: 0; }
+
+    /* ── Flow diagram ── */
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+    .flow-box {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .flow-box.core { background: var(--core-light); color: var(--core); }
+    .flow-box.mod { background: var(--mod-light); color: var(--mod); }
+    .flow-box.out { background: var(--gate-light); color: var(--gate); }
+    .flow-arrow { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="../../DOCS/index.html"><i data-lucide="arrow-left" style="width:16px;height:16px"></i> Design Flow ガイド</a>
+    <span class="badge">記入済みサンプル案件</span>
+    <span style="font-size:0.8rem;color:var(--muted)">テキスト版: samples/case-01-bellagio-miyabi-pamphlet/</span>
+  </div>
+
+  <div class="wrap">
+
+    <header style="margin-bottom:2rem">
+      <p style="font-size:0.8rem;color:var(--mod);font-weight:700;margin-bottom:0.35rem">CASE 01 · モジュール A（パンフレット）</p>
+      <h1>Bellagio Miyabi 宿泊体験パンフレット</h1>
+      <p class="lead">Design Flow テンプレートを実際に埋めた架空案件です。<strong>コア（骨格）＋モジュール（肉付け）</strong> が揃った状態で、制作（Step 6）に入れるところまで進んでいます。</p>
+    </header>
+
+    <!-- Progress -->
+    <div class="stepper" id="progress">
+      <div class="step-pill done"><span class="num">✓</span> Step 1 要件</div>
+      <div class="step-pill done"><span class="num">✓</span> Step 2 リサーチ</div>
+      <div class="step-pill done"><span class="num">✓</span> Step 3 コンセプト <span style="opacity:0.7;font-weight:400">· Concept</span></div>
+      <div class="step-pill done"><span class="num">✓</span> Step 4 トンマナ ★ <span style="opacity:0.7;font-weight:400">· Visual</span></div>
+      <div class="step-pill done"><span class="num">✓</span> Step 5 台割・WF ★ <span style="opacity:0.7;font-weight:400">· Layout</span></div>
+      <div class="step-pill done"><span class="num">✓</span> 本番原稿 <span style="opacity:0.7;font-weight:400">· Copy Final</span></div>
+      <div class="step-pill done"><span class="num">✓</span> 最終ゲート</div>
+      <div class="step-pill current"><span class="num">6</span> 制作待ち</div>
+    </div>
+
+    <!-- How pieces connect -->
+    <section id="overview">
+      <div class="card">
+        <h2><i data-lucide="layers" style="width:22px;height:22px;color:var(--core)"></i> この案件の構成イメージ</h2>
+        <div class="flow-connector">
+          <div class="flow-box core">コア: 誰に・メッセージ・トンマナ（仮原稿→本番）</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box mod">モジュール A: 8P台割・WF・入稿</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-box out">Illustrator で「決定どおり」制作</div>
+        </div>
+        <div class="grid-3" style="margin-top:1rem;font-size:0.85rem">
+          <div><strong>形式</strong><br>A4 · 8P中綴じ · 400部</div>
+          <div><strong>納期</strong><br>2026-07-15（入稿 7/10）</div>
+          <div><strong>原稿</strong><br>仮原稿 2,654字 → 本番確定（6/17）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 1 Persona -->
+    <section id="step1">
+      <h2><i data-lucide="user" style="width:22px;height:22px;color:var(--core)"></i> Step 1 — 誰のため？（ペルソナ）</h2>
+      <div class="card persona">
+        <div class="persona-avatar">👩</div>
+        <div>
+          <h3 style="font-size:1.1rem;margin-bottom:0.25rem">田中 美咲（42）— メインターゲット</h3>
+          <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem">外資系マーケマネージャー / 東京在住 / 夫婦での記念日旅行</p>
+          <dl>
+            <dt>課題</dt>
+            <dd>「どこも似たような高級旅館」感。特別感の根拠が欲しい。</dd>
+            <dt>求めるもの</dt>
+            <dd>短時間で「なぜここが特別か」を納得。予約前の安心材料。</dd>
+            <dt>期待する行動</dt>
+            <dd>QR → 公式サイト宿泊プラン → 問い合わせ</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2-3 Key message -->
+    <section id="step3">
+      <h2><i data-lucide="lightbulb" style="width:22px;height:22px;color:var(--core)"></i> Step 3 — コンセプト・仮原稿 <span style="font-size:0.75rem;color:var(--muted);font-weight:500">業界: Concept</span></h2>
+      <div class="key-msg" style="margin-bottom:1rem">
+        全12室だけが味わえる、祇園の静けさと、一客一亭のおもてなし。
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem">キーメッセージ確定 · 仮原稿（copy-draft.txt）で字数・構成をロック · 本番原稿は Step 6 前</p>
+
+      <div class="grid-2">
+        <div class="card copy-panel">
+          <div class="copy-meta">表紙 · 18字</div>
+          <h3>祇園に、まだ知らない夜を。</h3>
+        </div>
+        <div class="card copy-panel">
+          <div class="copy-meta">P1 見出し + 本文 · 214字</div>
+          <h3>全12室のためだけに設計された、大人のための宿。</h3>
+          <p class="copy-body">Bellagio Miyabi は、京都・祇園に佇む全12室のラグジュアリーホテルです。喧騒から一歩離れた路地にありながら、花見小路まで徒歩5分。専任スタッフが寄り添う「一客一亭」のおもてなしを…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 4 Visual -->
+    <section id="step4">
+      <h2><i data-lucide="palette" style="width:22px;height:22px;color:var(--core)"></i> Step 4 — トンマナ ★ <span style="font-size:0.75rem;color:var(--gate);font-weight:500">業界: Visual · 最重要</span></h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size:0.95rem;margin-bottom:0.75rem">カラーパレット + 理由</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-color" style="background:#2D4A3E"></div>
+              <div class="swatch-info"><strong>深緑</strong>#2D4A3E<br>静寂・苔</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#F5F0E8"></div>
+              <div class="swatch-info"><strong>生成り</strong>#F5F0E8<br>和紙・可読性</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#B8975A"></div>
+              <div class="swatch-info"><strong>金</strong>#B8975A<br>特別感10%以内</div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#1A1A1A"></div>
+              <div class="swatch-info"><strong>墨</strong>#1A1A1A<br>本文</div>
+            </div>
+          </div>
+        </div>
+        <div class="card type-preview">
+          <h3 style="font-size:0.95rem;margin-bottom:0.75rem">タイポグラフィ実プレビュー</h3>
+          <div class="h1-demo">祇園に、まだ知らない夜を。</div>
+          <div class="h2-demo">光と影が織りなす、和モダンの客室</div>
+          <div class="body-demo">全室に檜風呂とサンラウンジを備え、最低45㎡の広さ。障子の向こうに見えるのは、庭の緑か、京都の屋根瓦。</div>
+          <div class="type-meta">
+            <span>h1: Noto Serif JP 42pt</span>
+            <span>h2: 24pt</span>
+            <span>本文: Noto Sans JP 10.5pt / 1.75行</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 5 Page map + Wireframes -->
+    <section id="step5">
+      <h2><i data-lucide="book-open" style="width:22px;height:22px;color:var(--mod)"></i> Step 5 — 台割・WF ★ <span style="font-size:0.75rem;color:var(--mod);font-weight:500">業界: Layout</span></h2>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem">仮原稿を WF に入れてレイアウト実証。サムネイルをクリックすると詳細が表示されます。</p>
+
+      <div class="page-strip" id="pageStrip">
+        <div class="page-thumb active" data-page="cover">
+          <div class="page-frame"><div class="pg-cover"><div class="catch">祇園に、<br>まだ知らない夜を。</div></div></div>
+          <div class="page-label">表1 表紙</div>
+        </div>
+        <div class="page-thumb" data-page="p1">
+          <div class="page-frame"><div class="pg-cream"><div class="bar"></div><div class="pg-lines"></div><div class="pg-lines" style="width:80%"></div><div class="pg-photo"></div></div></div>
+          <div class="page-label">P1 コンセプト</div>
+        </div>
+        <div class="page-thumb" data-page="p2-3">
+          <div class="page-frame"><div class="pg-cream" style="flex-direction:row;padding:4px"><div class="pg-photo" style="flex:1;margin:0"></div><div style="flex:1;padding:4px"><div class="bar"></div><div class="pg-lines"></div></div></div></div>
+          <div class="page-label">P2-3 客室</div>
+        </div>
+        <div class="page-thumb" data-page="p4">
+          <div class="page-frame"><div class="pg-cream"><div class="bar"></div><div class="pg-photo" style="min-height:50%"></div><div class="pg-lines"></div></div></div>
+          <div class="page-label">P4 ダイニング</div>
+        </div>
+        <div class="page-thumb" data-page="p5">
+          <div class="page-frame"><div class="pg-cream"><div class="bar"></div><div style="flex:1;background:#ddd;border-radius:2px;margin-top:4px"></div></div></div>
+          <div class="page-label">P5 アクセス</div>
+        </div>
+        <div class="page-thumb" data-page="p6">
+          <div class="page-frame"><div class="pg-cream" style="flex-direction:row;gap:3px"><div style="flex:1"><div class="pg-lines"></div><div class="pg-lines"></div></div><div style="flex:1"><div class="pg-lines"></div><div class="pg-lines"></div></div></div></div>
+          <div class="page-label">P6 FAQ</div>
+        </div>
+        <div class="page-thumb" data-page="back">
+          <div class="page-frame"><div class="pg-cream" style="align-items:center;justify-content:center;display:flex;flex-direction:column;gap:4px"><div style="width:24px;height:24px;border:2px dashed #999;border-radius:2px"></div><div class="pg-lines" style="width:60%"></div></div></div>
+          <div class="page-label">表2 裏表紙</div>
+        </div>
+      </div>
+
+      <!-- WF Details -->
+      <div class="card wf-detail show" id="wf-cover">
+        <div class="wf-canvas" style="position:relative">
+          <span class="wf-tag">表1 · 表紙 WF</span>
+          <div class="wf-block wf-cover-full" style="flex:1">
+            <div style="font-size:0.65rem;opacity:0.7;margin-bottom:1rem">LOGO</div>
+            <div class="catch">祇園に、まだ知らない夜を。</div>
+            <div style="font-size:0.65rem;opacity:0.6;margin-top:1rem">42pt · 白 · 中央やや上</div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--gate);font-weight:600">
+          <i data-lucide="check" style="width:16px;height:16px;display:inline;vertical-align:-3px"></i>
+          仮原稿18字 · 1行収まり OK
+        </p>
+      </div>
+
+      <div class="card wf-detail" id="wf-p1">
+        <div class="wf-canvas">
+          <span class="wf-tag">P1 · コンセプト</span>
+          <div class="wf-block head" style="height:18%">全12室のためだけに設計された、大人のための宿。</div>
+          <div class="wf-block text" style="flex:1">Bellagio Miyabi は、京都・祇園に佇む全12室の…（186字）</div>
+          <div class="wf-block photo" style="height:35%">KV 庭 · 186×100mm</div>
+        </div>
+      </div>
+
+      <div class="card wf-detail" id="wf-p2-3">
+        <div class="wf-canvas spread">
+          <span class="wf-tag">P2-3 · 客室見開き</span>
+          <div style="display:flex;gap:8px;flex:1">
+            <div class="wf-block photo" style="flex:1.2">KV 客室<br>170×220mm</div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+              <div class="wf-block head">光と影が織りなす、和モダンの客室</div>
+              <div class="wf-block text" style="flex:1">142字 @10.5pt<br>ボックス 90×120mm</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;height:28%;margin-top:6px">
+            <div class="wf-block photo" style="flex:1">ROOM-02</div>
+            <div class="wf-block photo" style="flex:1">ROOM-03</div>
+            <div class="wf-block text" style="flex:1.5;font-size:0.6rem">キャプション 68字</div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--gate);font-weight:600">仮原稿でレイアウト収まり確認済（06-10）</p>
+      </div>
+
+      <div class="card wf-detail" id="wf-p4">
+        <div class="wf-canvas">
+          <span class="wf-tag">P4 · ダイニング</span>
+          <div class="wf-block head">季節の京都を、一皿に。</div>
+          <div class="wf-block photo" style="height:45%">料理 · 186×120mm</div>
+          <div class="wf-block text" style="flex:1">158字 · 花影レストラン…</div>
+        </div>
+      </div>
+
+      <div class="card wf-detail" id="wf-p5">
+        <div class="wf-canvas">
+          <span class="wf-tag">P5 · アクセス</span>
+          <div class="wf-block head" style="height:15%">アクセス</div>
+          <div class="wf-block text" style="height:35%">98字 · 住所・駅・時間</div>
+          <div class="wf-block photo" style="flex:1">地図 120×120mm</div>
+        </div>
+      </div>
+
+      <div class="card wf-detail" id="wf-p6">
+        <div class="wf-canvas">
+          <span class="wf-tag">P6 · FAQ</span>
+          <div style="display:flex;gap:8px;flex:1">
+            <div class="wf-block text" style="flex:1">Q&A 列1<br>248字 total</div>
+            <div class="wf-block text" style="flex:1">Q&A 列2<br>2段組 各90mm</div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--warn)">
+          <i data-lucide="undo-2" style="width:16px;height:16px;display:inline;vertical-align:-3px"></i>
+          06-12 遡及: 300字→248字に削減して収まり OK
+        </p>
+      </div>
+
+      <div class="card wf-detail" id="wf-back">
+        <div class="wf-canvas">
+          <span class="wf-tag">表2 · 裏表紙</span>
+          <div class="wf-block text" style="flex:1;align-items:center;justify-content:center;text-align:center">
+            ご予約・お問い合わせ<br>TEL / Web / QRコード<br>© 2026 Bellagio Miyabi
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Retro log -->
+    <section id="retro">
+      <h2><i data-lucide="undo-2" style="width:22px;height:22px;color:var(--warn)"></i> 遡及ログ（正常なフロー）</h2>
+      <div class="card">
+        <div class="retro-item">
+          <span class="retro-date">06-12</span>
+          <div>
+            <strong>Step 5 → Step 3</strong>
+            <div class="retro-flow">P6 FAQ 仮原稿300字超過 → copy-draft 削減 → 再カウント</div>
+          </div>
+        </div>
+        <div class="retro-item">
+          <span class="retro-date">06-15</span>
+          <div>
+            <strong>Step 5 → Step 4</strong>
+            <div class="retro-flow">表紙 h1 が48ptで2行割れ → 42pt に変更（4-2 更新）</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gate -->
+    <section id="gate">
+      <h2><i data-lucide="check-circle" style="width:22px;height:22px;color:var(--gate)"></i> 最終ゲート — 2026-06-18 通過</h2>
+      <div class="gate-grid">
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> キーメッセージを述べられる</div>
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> ターゲットを具体的に話せる</div>
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> 色・フォントの理由を述べられる</div>
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> 各ページの役割を説明できる</div>
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> 仕様変更に設計理由で答えられる</div>
+        <div class="gate-item"><i data-lucide="check" style="width:18px;height:18px"></i> 実装をほぼ想像できる</div>
+      </div>
+      <div class="card" style="margin-top:1rem;background:var(--gate-light);border:2px solid var(--gate)">
+        <p style="font-weight:700;color:var(--gate);display:flex;align-items:center;gap:0.5rem">
+          <i data-lucide="pen-tool" style="width:20px;height:20px"></i>
+          → Step 6: Illustrator 本実装へ GO
+        </p>
+        <p style="font-size:0.88rem;margin-top:0.5rem;color:var(--muted)">本番原稿確定済。ここから先はレイアウト・色の変更なし。決定どおりに作るだけ。</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const thumbs = document.querySelectorAll('.page-thumb');
+    const details = document.querySelectorAll('.wf-detail');
+    const map = {
+      cover: 'wf-cover', p1: 'wf-p1', 'p2-3': 'wf-p2-3',
+      p4: 'wf-p4', p5: 'wf-p5', p6: 'wf-p6', back: 'wf-back'
+    };
+
+    thumbs.forEach(t => {
+      t.addEventListener('click', () => {
+        thumbs.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        details.forEach(d => d.classList.remove('show'));
+        const id = map[t.dataset.page];
+        if (id) document.getElementById(id).classList.add('show');
+      });
+    });
+  </script>
+</body>
+</html>

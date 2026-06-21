@@ -577,6 +577,24 @@
       font-size: 0.85rem;
     }
 
+    /* ── Industry / v1.1 ── */
+    .industry-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.25rem;
+    }
+    .step-card.star { border-left-color: var(--prod); }
+    .step-card.star .step-num { background: var(--prod-light); color: var(--prod); }
+    table.industry-map { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    table.industry-map th, table.industry-map td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+    table.industry-map th { background: var(--bg); font-weight: 700; font-size: 0.78rem; }
+    table.industry-map tr.highlight { background: var(--prod-light); }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -629,6 +647,7 @@
         <li><a href="#overview"><i data-lucide="home" style="width:16px;height:16px"></i> 概要</a></li>
         <li><a href="#why"><i data-lucide="lightbulb" style="width:16px;height:16px"></i> なぜ必要か</a></li>
         <li><a href="#architecture"><i data-lucide="git-branch" style="width:16px;height:16px"></i> 全体像</a></li>
+        <li><a href="#industry"><i data-lucide="map" style="width:16px;height:16px"></i> 業界フェーズ</a></li>
         <li><a href="#principles"><i data-lucide="shield" style="width:16px;height:16px"></i> 設計原則</a></li>
         <li><a href="#core"><i data-lucide="cpu" style="width:16px;height:16px"></i> コア Step 1–4</a></li>
         <li><a href="#modules"><i data-lucide="puzzle" style="width:16px;height:16px"></i> モジュール</a></li>
@@ -669,7 +688,7 @@
             <div class="flow-mini">
               <div class="step"><i data-lucide="clipboard-list" style="width:16px;height:16px;color:var(--good)"></i> 計画段階で全部決定</div>
               <div class="arrow">↓</div>
-              <div class="step"><i data-lucide="lock" style="width:16px;height:16px;color:var(--good)"></i> 原稿・色・フォント・構成をロック</div>
+              <div class="step"><i data-lucide="lock" style="width:16px;height:16px;color:var(--good)"></i> トンマナ・構成・配置をロック</div>
               <div class="arrow">↓</div>
               <div class="step"><i data-lucide="pen-tool" style="width:16px;height:16px;color:var(--good)"></i> 制作開始（決定に従うだけ）</div>
               <div class="arrow">↓</div>
@@ -711,8 +730,8 @@
             <div class="arch-steps">
               <div class="arch-step"><i data-lucide="target" style="width:14px;height:14px"></i> Step 1 要件定義</div>
               <div class="arch-step"><i data-lucide="search" style="width:14px;height:14px"></i> Step 2 リサーチ</div>
-              <div class="arch-step gate-step"><i data-lucide="lock" style="width:14px;height:14px"></i> Step 3 原稿ロック</div>
-              <div class="arch-step"><i data-lucide="palette" style="width:14px;height:14px"></i> Step 4 トンマナ</div>
+              <div class="arch-step"><i data-lucide="lightbulb" style="width:14px;height:14px"></i> Step 3 コンセプト</div>
+              <div class="arch-step gate-step"><i data-lucide="palette" style="width:14px;height:14px"></i> Step 4 トンマナ ★</div>
             </div>
           </div>
 
@@ -731,7 +750,7 @@
 
           <div class="arch-connector">
             <i data-lucide="chevron-down" style="width:20px;height:20px"></i>
-            最終ゲート通過
+            本番原稿ロック → 最終ゲート
           </div>
 
           <div class="arch-prod">
@@ -775,19 +794,51 @@
         </div>
       </section>
 
+      <!-- Industry mapping -->
+      <section id="industry">
+        <h2><i data-lucide="map" style="width:24px;height:24px;color:var(--core)"></i> 業界標準フェーズとの対応</h2>
+        <p class="lead" style="margin-bottom:1rem">Design Flow Step（チェックリスト）と、デザイン現場の標準プロセス（地図）を並べて使います。</p>
+        <div class="card" style="overflow-x:auto">
+          <table class="industry-map">
+            <thead>
+              <tr><th>Design Flow</th><th>業界標準</th><th>Diamond</th><th>決めること</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Step 1</td><td>Brief</td><td>Discover</td><td>誰に・何のため・制約</td></tr>
+              <tr><td>Step 2</td><td>Research</td><td>Discover</td><td>競合・トレンド・差別化</td></tr>
+              <tr><td>Step 3</td><td>Concept</td><td>Define</td><td>メッセージ・方向性・仮原稿</td></tr>
+              <tr class="highlight"><td>Step 4 ★</td><td>Visual / Art Direction</td><td>Define→Develop</td><td>色・フォント・ビジュアル</td></tr>
+              <tr class="highlight"><td>Step 5 ★</td><td>Layout / Wireframe</td><td>Develop</td><td>台割・WF・配置</td></tr>
+              <tr><td>（§7）</td><td>Copy Finalization</td><td>Develop→Deliver</td><td>本番原稿（Step 6 前）</td></tr>
+              <tr><td>Step 6</td><td>Production</td><td>Deliver</td><td>制作・納品</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <!-- Principles -->
       <section id="principles">
-        <h2><i data-lucide="shield" style="width:24px;height:24px;color:var(--core)"></i> 5つの設計原則</h2>
+        <h2><i data-lucide="shield" style="width:24px;height:24px;color:var(--core)"></i> 設計原則</h2>
         <div class="principles">
           <div class="principle">
             <div class="principle-icon"><i data-lucide="puzzle" style="width:20px;height:20px"></i></div>
             <h3>コア ＋ モジュール</h3>
-            <p>共通の根幹に、制作物別の専用プロセスを着せ替える。無駄なく、漏れなく。</p>
+            <p>共通の根幹に、制作物別の専用プロセスを着せ替える。</p>
           </div>
           <div class="principle">
-            <div class="principle-icon" style="background:var(--gate-light);color:var(--gate)"><i data-lucide="lock" style="width:20px;height:20px"></i></div>
-            <h3>原稿ロック関門</h3>
-            <p>ダミーテキストでのデザイン進行を禁止。実原稿確定後にレイアウトへ。</p>
+            <div class="principle-icon" style="background:var(--gate-light);color:var(--gate)"><i data-lucide="palette" style="width:20px;height:20px"></i></div>
+            <h3>構成・トンマナ優先</h3>
+            <p>制作前に「見た目と配置」を決める。イメージズレ・レイアウト変更を防ぐ。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="map" style="width:20px;height:20px"></i></div>
+            <h3>業界フェーズの可視化</h3>
+            <p>各 Step に業界標準上の位置を明示。「今どこにいるか」を常に把握。</p>
+          </div>
+          <div class="principle">
+            <div class="principle-icon"><i data-lucide="file-text" style="width:20px;height:20px"></i></div>
+            <h3>原稿は段階的</h3>
+            <p>Step 3 は仮原稿（字数確定）で OK。本番原稿は Step 6 前に確定。</p>
           </div>
           <div class="principle">
             <div class="principle-icon"><i data-lucide="message-square" style="width:20px;height:20px"></i></div>
@@ -798,11 +849,6 @@
             <div class="principle-icon"><i data-lucide="undo-2" style="width:20px;height:20px"></i></div>
             <h3>遡及を許容</h3>
             <p>矛盾が見つかったら該当 Step に戻る。失敗ではなく正常なフロー。</p>
-          </div>
-          <div class="principle">
-            <div class="principle-icon"><i data-lucide="book-marked" style="width:20px;height:20px"></i></div>
-            <h3>既存ブランド例外</h3>
-            <p>ガイドラインがあるブランドは Step 4 を適用・スキップ選択可。</p>
           </div>
         </div>
       </section>
@@ -819,6 +865,7 @@
             <div class="meta">
               <h3>プロジェクト要件（目的とターゲット）</h3>
               <div class="purpose"><i data-lucide="target" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 「何のため・誰に・どんな制約で作るか」を明確にする</div>
+              <span class="industry-tag">業界: Brief · Discover</span>
             </div>
             <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
           </div>
@@ -843,6 +890,7 @@
             <div class="meta">
               <h3>リサーチ・戦略分析</h3>
               <div class="purpose"><i data-lucide="search" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> ターゲット・競合・トレンドを理解し、表現の土台を作る</div>
+              <span class="industry-tag">業界: Research · Discover</span>
             </div>
             <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
           </div>
@@ -859,39 +907,37 @@
         </div>
 
         <!-- Step 3 -->
-        <div class="step-card gate">
+        <div class="step-card">
           <div class="step-card-header" onclick="toggleStep(this)">
             <div class="step-num">3</div>
             <div class="meta">
-              <h3>コンテンツの完全ロック（原稿と素材） <span class="badge badge-gate">最重要関門</span></h3>
-              <div class="purpose"><i data-lucide="lock" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 手戻り最大原因「原稿・素材の未確定」をここで終わらせる</div>
+              <h3>コンセプト・コンテンツ設計</h3>
+              <div class="purpose"><i data-lucide="lightbulb" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> メッセージ・方向性・構成を確定。原稿は仮文（字数確定）で OK</div>
+              <span class="industry-tag">業界: Concept · Define</span>
             </div>
             <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
           </div>
           <div class="step-card-body">
-            <div class="gate-banner">
-              <i data-lucide="alert-circle" style="width:18px;height:18px;flex-shrink:0"></i>
-              ダミーテキストでのレイアウト設計・デザイン進行は<strong>禁止</strong>
-            </div>
             <ul class="checklist">
               <li>キーメッセージの策定（1〜2文。以降すべての判断基準）</li>
               <li>ビジュアル方向性の決定（形容詞 2〜3 個 + ムードボード 3〜5 枚）</li>
               <li>キーワード 3〜5 個の抽出</li>
-              <li>必須掲載要素ごとの <strong>実原稿（テキストデータ）</strong> の確定</li>
+              <li>必須掲載要素ごとの <strong>仮原稿</strong>（字数・段落構造 = 本番想定）</li>
               <li>支給画像・必須ロゴなど素材の確保</li>
-              <li>テキスト量と各セクションの文字数見積もり</li>
+              <li>セクション別の文字数見積もり</li>
             </ul>
-            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--gate);font-weight:600">→ 実原稿・素材が揃い、キーメッセージが言語化されている → Step 4 へ</p>
+            <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--core);font-weight:600">→ キーメッセージ・方向性・仮原稿が揃ったら Step 4 へ</p>
           </div>
         </div>
 
         <!-- Step 4 -->
-        <div class="step-card">
+        <div class="step-card star open">
           <div class="step-card-header" onclick="toggleStep(this)">
             <div class="step-num">4</div>
             <div class="meta">
-              <h3>ビジュアル・ファウンデーション（基本トンマナ）</h3>
+              <h3>ビジュアル・ファウンデーション（基本トンマナ） <span class="badge badge-prod">★ 最重要</span></h3>
               <div class="purpose"><i data-lucide="palette" style="width:14px;height:14px;display:inline;vertical-align:-2px"></i> 色・フォント・画像方向・グリッド・余白を確定。以降は変更しない</div>
+              <span class="industry-tag">業界: Visual / Art Direction · Define→Develop</span>
             </div>
             <i data-lucide="chevron-down" class="chevron" style="width:20px;height:20px"></i>
           </div>
@@ -933,8 +979,8 @@
 
       <!-- Modules -->
       <section id="modules">
-        <h2><i data-lucide="puzzle" style="width:24px;height:24px;color:var(--core)"></i> 着せ替えモジュール（Step 5）</h2>
-        <p class="lead" style="margin-bottom:1.5rem">Step 1 で選んだ制作物種別に応じ、<strong>1 モジュールのみ</strong>を適用します。</p>
+        <h2><i data-lucide="puzzle" style="width:24px;height:24px;color:var(--core)"></i> 着せ替えモジュール（Step 5） <span class="badge badge-prod">★ 最重要</span></h2>
+        <p class="lead" style="margin-bottom:1.5rem">Step 1 で選んだ制作物種別に応じ、<strong>1 モジュールのみ</strong>を適用。仮原稿で WF・レイアウトを実証します。<span class="industry-tag">業界: Layout / Wireframe · Develop</span></p>
 
         <div class="modules-grid">
           <div class="module-card">
@@ -1019,6 +1065,20 @@
         </div>
       </section>
 
+      <!-- Copy final -->
+      <section id="copy-final">
+        <div class="card" style="border-left:4px solid var(--gate)">
+          <h2><i data-lucide="file-check" style="width:22px;height:22px;color:var(--gate)"></i> 本番原稿ロック（Step 6 前）</h2>
+          <span class="industry-tag">業界: Copy Finalization · Develop→Deliver</span>
+          <p style="margin:1rem 0;font-size:0.9rem;color:var(--text-muted)">Step 3 の仮原稿を本番テキスト（copy-master.txt）に差し替え。文案変更なしの案件はスキップ可。</p>
+          <ul class="checklist">
+            <li>全セクションの本番テキスト確定</li>
+            <li>文字数・段落が Step 5 WF と整合（変更時は WF 再確認）</li>
+            <li>素材が最新版</li>
+          </ul>
+        </div>
+      </section>
+
       <!-- Production -->
       <section id="production">
         <h2><i data-lucide="pen-tool" style="width:24px;height:24px;color:var(--prod)"></i> 制作・実装（Step 6）</h2>
@@ -1052,7 +1112,7 @@
       <section id="gate">
         <div class="final-gate">
           <h2><i data-lucide="check-circle" style="width:24px;height:24px"></i> 最終ゲート — 「完全に見えている状態」か？</h2>
-          <p style="opacity:0.9;margin-bottom:1.25rem;font-size:0.95rem">モジュール完了後、制作（Step 6）に進む前に以下をすべて YES にしてください。</p>
+          <p style="opacity:0.9;margin-bottom:1.25rem;font-size:0.95rem">本番原稿ロック + モジュール完了後、制作（Step 6）に進む前に以下をすべて YES にしてください。</p>
           <ul class="checklist">
             <li>キーメッセージを自分で述べられる</li>
             <li>ターゲット層について具体的に話せる</li>
@@ -1069,7 +1129,7 @@
       </section>
 
       <footer>
-        Design Flow v1.0 — 正本: <code>DOCS/PLAN.md</code><br>
+        Design Flow v1.1 — 正本: <code>DOCS/PLAN.md</code><br>
         このガイドは本プランに基づくビジュアル説明ドキュメントです。
       </footer>
     </main>

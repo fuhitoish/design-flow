@@ -5,21 +5,24 @@ project/status-tracker.txt — ステータス・遡及ログ
 
 ■ 現在位置
 
-  現在の Step     :
-  ブロック要因    :
-  次のアクション  :
+  現在の Step         :
+  業界フェーズ        : Brief / Research / Concept / Visual / Layout / Copy Final / Production
+  Double Diamond      : Discover / Define / Develop / Deliver
+  ブロック要因        :
+  次のアクション      :
 
 ■ ゲート通過記録
 
-  | Step | 通過日     | 確認者 | 備考 |
-  |------|------------|--------|------|
-  | 1    |            |        |      |
-  | 2    |            |        |      |
-  | 3    |            |        |      |
-  | 4    |            |        |      |
-  | 5    |            |        |      |
-  | gate |            |        |      |
-  | 6    |            |        |      |
+  | Step | 業界フェーズ | 通過日 | 確認者 | 備考 |
+  |------|--------------|--------|--------|------|
+  | 1    | Brief        |        |        |      |
+  | 2    | Research     |        |        |      |
+  | 3    | Concept      |        |        |      |
+  | 4    | Visual       |        |        |      |
+  | 5    | Layout       |        |        |      |
+  | copy | Copy Final   |        |        | スキップ可 |
+  | gate | Sign-off     |        |        |      |
+  | 6    | Production   |        |        |      |
 
 ■ 遡及ログ（矛盾発見時に記録 — 正常なフロー）
 
