@@ -1,0 +1,94 @@
+{
+  "patterns": [
+    {
+      "id": "TYPE-SCALE-01",
+      "name": "√2 モジュラースケール",
+      "category": "typography",
+      "summary": "基準サイズに √2（≈1.414）を掛けて階層を作る。A 判と同系統。",
+      "when_to_use": "和・A4 印刷物。試用 FB「和の比率 1.414」に対応。",
+      "when_not": "極端にコンパクトなバナー。",
+      "params": {
+        "ratio": 1.414,
+        "base_pt": 10,
+        "levels": { "caption": 7, "body": 10, "subhead": 14, "head": 20, "display": 28 }
+      },
+      "modules": ["A", "B"],
+      "tags": ["和", "白銀比"],
+      "priority": "P0",
+      "svg": "svg/prop-silver.svg",
+      "apply": {
+        "step": "4",
+        "field": "typography",
+        "template": "【√2 スケール】基準 10pt\nキャプション: 7pt / 本文: 10pt / 小見出し: 14pt / 見出し: 20pt / ディスプレイ: 28pt\n（各段 ≈ ×1.414）\n和文: ___ / 欧文: ___"
+      }
+    },
+    {
+      "id": "TYPE-HIERARCHY-A4",
+      "name": "A4 パンフ標準階層",
+      "category": "typography",
+      "summary": "A4 中綴じパンフ向けの見出し〜本文サイズセット。",
+      "when_to_use": "モジュール A・情報量中程度の案内物。",
+      "when_not": "ポスター・遠距離視認。",
+      "params": { "display_pt": 24, "h1_pt": 18, "h2_pt": 14, "body_pt": 10, "caption_pt": 8 },
+      "modules": ["A"],
+      "tags": ["パンフ"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "typography",
+        "template": "【A4 標準階層】\n表紙タイトル: 24pt / H1: 18pt / H2: 14pt / 本文: 10pt / キャプション: 8pt\n行間: 本文 160% / 見出し 120%"
+      }
+    },
+    {
+      "id": "TYPE-PAIR-01",
+      "name": "明朝見出し + ゴシック本文",
+      "category": "typography",
+      "summary": "和文の定番ペア。見出しに品格、本文に可読性。",
+      "when_to_use": "旅館・高級・和モダン。Bellagio 系案件。",
+      "when_not": "カジュアル・ポップ訴求。",
+      "params": { "heading_style": "mincho", "body_style": "gothic" },
+      "modules": ["A", "B"],
+      "tags": ["和", "高級"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "typography",
+        "template": "【フォントペア: 明朝+ゴシック】\n見出し: ___明朝 ___pt Bold\n本文: ___ゴシック ___pt Regular\n欧文見出し: ___ / 欧文本文: ___"
+      }
+    },
+    {
+      "id": "TYPE-PAIR-02",
+      "name": "同一ファミリー・ウェイト分け",
+      "category": "typography",
+      "summary": "1 ファミリー内でウェイトとサイズだけで階層を作る。",
+      "when_to_use": "モダン・統一感・Web との整合。",
+      "when_not": "和の格式を強く出したい場合。",
+      "params": { "family": "", "weights": ["Regular", "Medium", "Bold"] },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["モダン"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "typography",
+        "template": "【同一ファミリー】\nファミリー: ___\n見出し: Bold ___pt / 小見出し: Medium ___pt / 本文: Regular ___pt"
+      }
+    },
+    {
+      "id": "TYPE-PAIR-03",
+      "name": "和欧数字分離",
+      "category": "typography",
+      "summary": "和文・欧文・数字を別指定して混在時の違和感を減らす。",
+      "when_to_use": "価格・日付・電話番号が多い案内物。",
+      "when_not": "欧文のみの媒体。",
+      "params": { "jp": "", "en": "", "figures": "tabular" },
+      "modules": ["A", "B"],
+      "tags": ["実務"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "typography",
+        "template": "【和欧数字分離】\n和文: ___\n欧文: ___\n数字: ___（tabular figures 推奨）\n価格・日付は欧文数字フォントに統一"
+      }
+    }
+  ]
+}

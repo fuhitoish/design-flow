@@ -1,0 +1,97 @@
+{
+  "patterns": [
+    {
+      "id": "EYE-Z",
+      "name": "Z パターン",
+      "category": "eye",
+      "summary": "左上→右上→左下→右下の視線の流れ。",
+      "when_to_use": "横長・見開き・4 ブロック程度の情報。バナー・表紙。",
+      "when_not": "長文を上から順に読ませたい本文ページ。",
+      "params": {
+        "zones": ["①ロゴ/見出し", "②サブ", "③本文", "④CTA"]
+      },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["視線誘導"],
+      "priority": "P0",
+      "svg": "svg/eye-z.svg",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【視線: Z パターン】\n①左上: ロゴ/見出し → ②右上: サブ → ③左下: 本文 → ④右下: CTA"
+      }
+    },
+    {
+      "id": "EYE-F",
+      "name": "F パターン",
+      "category": "eye",
+      "summary": "上の横線を読み、左を下る視線。テキスト多め向け。",
+      "when_to_use": "パンフ本文・案内文・記事型レイアウト。",
+      "when_not": "画像中心の表紙のみの設計。",
+      "params": {
+        "zones": ["①見出し行", "②サブ行", "③左リード", "④本文ブロック"]
+      },
+      "modules": ["A", "B"],
+      "tags": ["テキスト多め"],
+      "priority": "P0",
+      "svg": "svg/eye-f.svg",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【視線: F パターン】\n上段: 見出し+サブ（横読み）→ 左列: リード → 下: 本文ブロック"
+      }
+    },
+    {
+      "id": "EYE-CENTER",
+      "name": "中心集中型",
+      "category": "eye",
+      "summary": "中央の主役（写真・ロゴ）に視線が集まる構図。",
+      "when_to_use": "和・静謐・高級・1 点もの（竹うちわ写真等）。",
+      "when_not": "多数の情報を均等に見せたい場合。",
+      "params": { "focal": "center", "support": "minimal_periphery" },
+      "modules": ["A", "C"],
+      "tags": ["和", "高級", "試用案件"],
+      "priority": "P0",
+      "svg": "svg/eye-center.svg",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【視線: 中心集中】\n中央: 主役ビジュアル（60% 視線）\n周囲: 最小限のテキスト・ロゴ（補助のみ）"
+      }
+    },
+    {
+      "id": "COMP-RULE-THIRDS",
+      "name": "三分割法",
+      "category": "eye",
+      "summary": "3×3 グリッドの交点・線上に主題を置く。",
+      "when_to_use": "写真トリミング・キービジュアル配置。",
+      "when_not": "対称・格式重視で中央配置が必須の場合。",
+      "params": { "grid": "3x3" },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["構図"],
+      "priority": "P0",
+      "svg": "svg/comp-thirds.svg",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【構図: 三分割】\n主題を交点（例: 右上交点）に配置\n地平線・見出し基準線を 1/3 線上に"
+      }
+    },
+    {
+      "id": "COVER-LAYOUT-01",
+      "name": "表紙・タイトル上 / ビジュアル下",
+      "category": "eye",
+      "summary": "表紙の定番。上にタイトル、下にキービジュアル。",
+      "when_to_use": "パンフ・フォルダ表紙。3 秒で内容が伝わる構成。",
+      "when_not": "全面写真でインパクトを取りたい場合。",
+      "params": { "title_zone": "top_30pct", "visual_zone": "bottom_70pct" },
+      "modules": ["A"],
+      "tags": ["表紙"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【表紙レイアウト 01】\n上 30%: タイトル+サブ / 下 70%: キービジュアル\n裏表紙: 連絡先・QR"
+      }
+    }
+  ]
+}

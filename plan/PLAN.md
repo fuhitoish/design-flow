@@ -15,6 +15,9 @@
 |---|---|
 | [`design_flow_project_plan.md`](./prototypes/design_flow_project_plan.md) | 詳細版プロトタイプ。各 Step の実施内容・やり方・成果物を網羅 |
 | [`design_flow_project_plan_v2_gemini.md`](./prototypes/design_flow_project_plan_v2_gemini.md) | モジュール型アーキテクチャのプロトタイプ。システム化の骨格 |
+| [`REVISE_PLAN.md`](./REVISE_PLAN.md) | 試用フィードバックに基づく実装計画（v1.2 草案） |
+| [`glossary.md`](./glossary.md) | 用語集（UI ラベル・ヘルプ基準） |
+| [`../knowledge/`](../knowledge/) | デザイン知識の収集・型候補（DPL 前段階） |
 
 ---
 
@@ -348,9 +351,13 @@ Project（親）
 | 3 | テンプレート・HTML ガイド・サンプル案件 | ✅ 完了 |
 | 4 | v1.1 — 原稿段階化・業界フェーズ統合 | ✅ 完了 |
 | 5 | 試用システム（pilot/trial/）構築 | ✅ 完了 |
-| 6 | 実案件 1 件で app を使って試用 | ⬜ 未着手 |
-| 7 | 試用フィードバックを本プランに反映 | ⬜ 未着手 |
-| 8 | Web アプリ プロトタイプ着手 | ⬜ 未着手 |
+| 6 | 実案件 1 件で pilot を使って試用 | ✅ 完了（夏うちわ案件） |
+| 7 | 試用フィードバックを本プランに反映 | 🔄 [REVISE_PLAN.md](./REVISE_PLAN.md) 作成済 |
+| 8 | Web アプリ（app/）プロトタイプ着手 | ⬜ Phase R2 待ち |
+| 9 | PLAN.md v1.2（ライフサイクル・用語） | ⬜ REVISE Phase R0 |
+| 10 | pilot 改善（用語・自動チェック等） | ⬜ REVISE Phase R1 |
+| 11 | デザイン知識収集（knowledge/research/） | ✅ 初版 |
+| 12 | DPL v0.1（patterns JSON + trial picker） | ✅ K1 |
 | — | リポジトリ構成整理（plan / pilot / app） | ✅ 完了 |
 
 ---

@@ -1,0 +1,59 @@
+{
+  "patterns": [
+    {
+      "id": "PROP-SILVER",
+      "name": "白銀比 √2 分割",
+      "category": "proportion",
+      "summary": "1 : √2（≈1.414）で要素や余白を分割。A 判と同系統。",
+      "when_to_use": "和・A4 印刷物。試用 FB「和の比率 1.414」。",
+      "when_not": "正方形・SNS 専用素材のみの案件。",
+      "params": { "ratio": 1.414, "alias": "大和比" },
+      "modules": ["A", "B"],
+      "tags": ["和", "白銀比", "A4"],
+      "priority": "P0",
+      "svg": "svg/prop-silver.svg",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【比率: 白銀比 √2】\n要素分割: 1 : 1.414\nA4 用紙と同系統で統一\n理由: 和の品格・用紙との整合"
+      }
+    },
+    {
+      "id": "PROP-THIRDS",
+      "name": "三分割",
+      "category": "proportion",
+      "summary": "横・縦を 3 等分した基準線で配置。",
+      "when_to_use": "キービジュアル枠・帯の高さ・段組幅。",
+      "when_not": "—",
+      "params": { "parts": 3 },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["構図"],
+      "priority": "P0",
+      "svg": "svg/comp-thirds.svg",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【比率: 三分割】\n主要ブロックを 1/3 または 2/3 幅で配置"
+      }
+    },
+    {
+      "id": "PROP-ASPECT-SET",
+      "name": "画像枠 6 種",
+      "category": "proportion",
+      "summary": "よく使うアスペクト比の画像枠プリセット。",
+      "when_to_use": "Step 5 で画像スペースを数値で指定するとき。",
+      "when_not": "—",
+      "params": {
+        "ratios": ["16:9", "4:3", "3:2", "1:1", "1:√2", "2:1"]
+      },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["画像"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "imageSpec",
+        "template": "【画像枠】\nヒーロー: 16:9 または 1:√2（A4 全面）\nサムネ: 1:1 / 横写真: 3:2\nトリミング基準: 三分割"
+      }
+    }
+  ]
+}

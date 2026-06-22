@@ -1,0 +1,117 @@
+{
+  "patterns": [
+    {
+      "id": "PRINT-BIND-8P",
+      "name": "中綴じ 8P 台割",
+      "category": "print",
+      "summary": "A4 中綴じ 8 ページの標準台割。表1=表紙、表8=裏表紙。",
+      "when_to_use": "宿泊・商品パンフの定番。モジュール A 最頻出。",
+      "when_not": "4P 以下のリーフレット、12P 以上のカタログ。",
+      "params": {
+        "binding": "saddle_stitch",
+        "pages": 8,
+        "sheet_count": 2,
+        "spread_map": [
+          { "physical": "表4-表1", "roles": ["裏表紙側", "表紙"] },
+          { "physical": "2-7", "roles": ["内側見開き"] },
+          { "physical": "6-3", "roles": ["内側見開き"] },
+          { "physical": "8-5", "roles": ["内側見開き"] }
+        ]
+      },
+      "modules": ["A"],
+      "tags": ["中綴じ", "8P"],
+      "priority": "P0",
+      "svg": "svg/print-8p.svg",
+      "apply": {
+        "step": "5",
+        "field": "pageMap",
+        "template": "【8P 中綴じ台割】\n表1: 表紙 / 表8: 裏表紙（連絡先・QR）\nP1: オープニング / P2-3: 見開き・主力訴求\nP4-5: 詳細・商品 / P6: FAQ / P7: 予約・CTA"
+      }
+    },
+    {
+      "id": "PRINT-FOLD-2",
+      "name": "二つ折り 4 面",
+      "category": "print",
+      "summary": "A4 1 枚を二つ折り。表外・表内・裏内・裏外の 4 面。",
+      "when_to_use": "シンプル案内・リーフレット。",
+      "when_not": "ポケットが必要な同封物セット。",
+      "params": { "faces": 4, "fold": "half" },
+      "modules": ["A"],
+      "tags": ["折り"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "pageMap",
+        "template": "【二つ折り 4 面】\n表外: 表紙 / 表内: オープニング\n裏内: 詳細 / 裏外: 連絡先・CTA"
+      }
+    },
+    {
+      "id": "PRINT-FOLDER-2PKT",
+      "name": "二つ折り 2 ポケットフォルダ",
+      "category": "print",
+      "summary": "表紙 + 2 ポケット。うちわ・封筒同封（試用案件型）。",
+      "when_to_use": "ギフト同封・DM パッケージ。",
+      "when_not": "単体パンフのみの案件。",
+      "params": {
+        "pockets": 2,
+        "contents": ["案内物", "ギフト", "封筒"],
+        "check": ["ポケット深さ", "折り代", "郵送サイズ"]
+      },
+      "modules": ["A"],
+      "tags": ["試用案件", "フォルダ"],
+      "priority": "P0",
+      "svg": "svg/print-folder-2pkt.svg",
+      "apply": {
+        "step": "5",
+        "field": "spec",
+        "template": "【2 ポケットフォルダ】\n表紙: 開封動機（3 秒ルール）\nポケ1: ___ / ポケ2: ___\n同封物厚み: ___mm / 郵送: 定形外要確認"
+      }
+    },
+    {
+      "id": "PRINT-SET-GIFT",
+      "name": "ギフト同封セット",
+      "category": "print",
+      "summary": "案内 + ギフト + 封筒 + フォルダの一体デザイン型。",
+      "when_to_use": "休暇案内＋竹うちわ等のプロモーション。",
+      "when_not": "デジタルのみのキャンペーン。",
+      "params": {
+        "items": ["案内パンフ/リーフレット", "ギフト（裏面デザイン）", "封筒", "2 ポケットフォルダ"]
+      },
+      "modules": ["A"],
+      "tags": ["試用案件", "同封"],
+      "priority": "P0",
+      "apply": {
+        "step": "1",
+        "field": "specInitial",
+        "template": "【同封セット】\n①案内物（全面）②ギフト裏面のみ ③封筒 ④2 ポケットフォルダ\nトンマナ一体 / うちわ曲面 mock 要検証"
+      }
+    },
+    {
+      "id": "PRINT-PAGE-ROLES-8P",
+      "name": "8P ページ役割テンプレ",
+      "category": "print",
+      "summary": "各ページの役割と優先度を定義した台割メモ型。",
+      "when_to_use": "台割設計のたたき台。原稿割り当て前。",
+      "when_not": "—",
+      "params": {
+        "roles": [
+          { "page": "表1", "role": "表紙・第一印象", "priority": 1 },
+          { "page": "表8", "role": "裏表紙・連絡先", "priority": 2 },
+          { "page": "1", "role": "オープニング", "priority": 1 },
+          { "page": "2-3", "role": "見開き・主力訴求", "priority": 1 },
+          { "page": "4-5", "role": "詳細・商品", "priority": 2 },
+          { "page": "6", "role": "FAQ", "priority": 3 },
+          { "page": "7", "role": "予約・CTA", "priority": 1 }
+        ]
+      },
+      "modules": ["A"],
+      "tags": ["台割"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "pageMap",
+        "template": "【8P 役割】\n優先1: 表1, P1, P2-3, P7\n優先2: 表8, P4-5\n優先3: P6\n各ページに原稿セクションを割り当て"
+      }
+    }
+  ]
+}

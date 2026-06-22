@@ -1,0 +1,122 @@
+{
+  "patterns": [
+    {
+      "id": "GRID-A4-1COL",
+      "name": "A4 1 段・標準マージン",
+      "category": "grid",
+      "summary": "A4 縦・1 段組・標準マージン。長文・案内文向け。",
+      "when_to_use": "本文中心のパンフ・シニア向け（行長 35 字前後）。",
+      "when_not": "商品カタログなど画像・項目が多い場合。",
+      "params": {
+        "page_mm": [210, 297],
+        "columns": 1,
+        "margin_mm": { "top": 20, "right": 18, "bottom": 20, "left": 18 },
+        "gutter_mm": 0,
+        "chars_per_line": 35
+      },
+      "modules": ["A"],
+      "tags": ["A4", "可読性"],
+      "priority": "P0",
+      "svg": "svg/grid-a4-1col.svg",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【A4 1 段】\nマージン: 上20 / 右18 / 下20 / 左18 mm\n段組: 1 / 行字数: 35 前後\n段抜き: なし"
+      }
+    },
+    {
+      "id": "GRID-A4-2COL",
+      "name": "A4 2 段組",
+      "category": "grid",
+      "summary": "A4 縦・2 段組。情報量を増やす標準レイアウト。",
+      "when_to_use": "複数商品・FAQ・比較表。",
+      "when_not": "長文を一気に読ませたいオープニングページ。",
+      "params": {
+        "page_mm": [210, 297],
+        "columns": 2,
+        "margin_mm": { "top": 18, "right": 15, "bottom": 18, "left": 15 },
+        "gutter_mm": 5
+      },
+      "modules": ["A"],
+      "tags": ["A4"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【A4 2 段組】\nマージン: 上18 / 左右15 / 下18 mm\n段間（ガター）: 5 mm\n段抜き: 見出しのみ可"
+      }
+    },
+    {
+      "id": "GRID-MARGIN-SET",
+      "name": "マージン 3 種プリセット",
+      "category": "grid",
+      "summary": "タイト（情報多）/ 標準 / ゆったり（高級）の余白セット。",
+      "when_to_use": "Step 4 でホワイトスペース戦略を素早く決める。",
+      "when_not": "—",
+      "params": {
+        "tight_mm": 12,
+        "standard_mm": 18,
+        "generous_mm": 25
+      },
+      "modules": ["A", "B"],
+      "tags": ["余白"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【マージン戦略: 標準 18mm】\n（選択: タイト12 / 標準18 / ゆったり25）\nホワイトスペース: 見出し上下に本文 1 行分以上"
+      }
+    },
+    {
+      "id": "LAYOUT-PAGE-HERO",
+      "name": "ページ内・ヒーロー型",
+      "category": "grid",
+      "summary": "上大画像 + 下テキスト。表紙・オープニング向け。",
+      "when_to_use": "第一印象・キービジュアル訴求。",
+      "when_not": "テキストのみの詳細ページ。",
+      "params": { "image_area": "top_60pct", "text_area": "bottom_40pct" },
+      "modules": ["A", "B"],
+      "tags": ["表紙"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【レイアウト: ヒーロー型】\n上 60%: キービジュアル / 下 40%: 見出し+リード文"
+      }
+    },
+    {
+      "id": "LAYOUT-PAGE-SPLIT-LR",
+      "name": "ページ内・左右分割",
+      "category": "grid",
+      "summary": "左画像 / 右テキスト（または逆）。商品説明の定番。",
+      "when_to_use": "商品・施設の説明ページ。",
+      "when_not": "全面写真のインパクトページ。",
+      "params": { "split": "50_50" },
+      "modules": ["A"],
+      "tags": ["商品説明"],
+      "priority": "P0",
+      "apply": {
+        "step": "5",
+        "field": "wireframe",
+        "template": "【レイアウト: 左右分割】\n左 50%: 写真 / 右 50%: 見出し+本文+CTA"
+      }
+    },
+    {
+      "id": "WHITESPACE-MINIMAL",
+      "name": "余白戦略・ミニマル",
+      "category": "grid",
+      "summary": "要素を減らし余白で高級感を出す戦略。",
+      "when_to_use": "高級・和・富裕層向け。試用案件トーン。",
+      "when_not": "情報量が多く詰め込みが必要なカタログ。",
+      "params": { "margin_preset": "generous", "max_elements_per_page": 5 },
+      "modules": ["A", "B"],
+      "tags": ["高級", "ミニマル"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "grid",
+        "template": "【余白戦略: ミニマル】\n1 ページ最大 5 要素\nマージン: ゆったり 25mm\n見出し上下: 本文 2 行分以上の余白"
+      }
+    }
+  ]
+}

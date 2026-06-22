@@ -1,0 +1,77 @@
+{
+  "patterns": [
+    {
+      "id": "COLOR-SCHEME-01",
+      "name": "モノクロマティック",
+      "category": "color",
+      "summary": "1 色相の明度・彩度バリエーションのみで階層を作る配色。",
+      "when_to_use": "高級感・統一感・和の落ち着き。深緑だけで階層を作る等。",
+      "when_not": "区別が必要な情報が多い（グラフ・複数カテゴリ）。",
+      "params": { "hue_count": 1, "variation": "lightness_saturation" },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["高級", "和", "ミニマル"],
+      "priority": "P0",
+      "svg": "svg/color-monochromatic.svg",
+      "apply": {
+        "step": "4",
+        "field": "colors",
+        "template": "【配色型: モノクロマティック】\nベース: （色相名）#______ — 60% 面積\nサブ: 同色相・明度差 #______ — 30%\nアクセント: 同色相・彩度差 #______ — 10%\n理由: 単色階層で統一感と高級感を両立"
+      }
+    },
+    {
+      "id": "COLOR-SCHEME-02",
+      "name": "アナロガス（類似色）",
+      "category": "color",
+      "summary": "色相環で隣り合う色の組み合わせ。",
+      "when_to_use": "自然・穏やか・夏の涼しげ・環境系。",
+      "when_not": "強いアクセント・緊急・セール訴求。",
+      "params": { "hue_span_deg": 60, "typical_count": 3 },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["自然", "夏", "穏やか"],
+      "priority": "P0",
+      "svg": "svg/color-analogous.svg",
+      "apply": {
+        "step": "4",
+        "field": "colors",
+        "template": "【配色型: アナロガス】\nメイン: #______（例: 青緑）\nサブ: #______（隣接色）\nアクセント: #______（同系統・明度差）\n理由: 類似色で穏やかな一体感"
+      }
+    },
+    {
+      "id": "COLOR-SCHEME-03",
+      "name": "60-30-10 ルール",
+      "category": "color",
+      "summary": "ベース 60%・サブ 30%・アクセント 10% の面積配分。",
+      "when_to_use": "パンフ・LP など面積のある媒体全般。カラーロール設計の骨格。",
+      "when_not": "極端に情報密度が高く全面テキストのみの場合。",
+      "params": { "base": 60, "sub": 30, "accent": 10 },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["実務定番"],
+      "priority": "P0",
+      "svg": "svg/color-60-30-10.svg",
+      "apply": {
+        "step": "4",
+        "field": "colors",
+        "template": "【60-30-10】\n60% ベース（地色）: #______ / CMYK ___\n30% サブ（帯・ブロック）: #______ / CMYK ___\n10% アクセント（線・CTA）: #______ / CMYK ___\n理由: 面積比で視覚的安定を確保"
+      }
+    },
+    {
+      "id": "COLOR-ROLE-SET",
+      "name": "6 ロール空テンプレ",
+      "category": "color",
+      "summary": "Primary / Secondary / Accent / Neutral / Background / Text の論理ロール定義。",
+      "when_to_use": "色を論理的に管理したい案件。Step 4 以降の変更を防ぐ。",
+      "when_not": "1 色だけの極小物。",
+      "params": {
+        "roles": ["primary", "secondary", "accent", "neutral", "background", "text"]
+      },
+      "modules": ["A", "B", "C", "D"],
+      "tags": ["論理設計"],
+      "priority": "P0",
+      "apply": {
+        "step": "4",
+        "field": "colors",
+        "template": "【カラーロール】\nPrimary: #______ — ブランド主色\nSecondary: #______ — 補助色\nAccent: #______ — 強調・CTA\nNeutral: #______ — 枠・区切り\nBackground: #______ — 地色\nText: #______ — 本文色\n各ロールに RGB + CMYK を記載"
+      }
+    }
+  ]
+}

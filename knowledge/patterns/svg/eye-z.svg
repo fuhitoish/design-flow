@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="ZÑ¿üó–Ú">
+  <rect width="200" height="140" fill="#f8f9fa"/>
+  <rect x="15" y="15" width="170" height="110" fill="#fff" stroke="#dee2e6"/>
+  <circle cx="35" cy="35" r="8" fill="#4c6ef5"/>
+  <text x="35" y="38" text-anchor="middle" font-size="7" fill="#fff">1</text>
+  <circle cx="165" cy="35" r="8" fill="#4c6ef5"/>
+  <text x="165" y="38" text-anchor="middle" font-size="7" fill="#fff">2</text>
+  <circle cx="35" cy="105" r="8" fill="#4c6ef5"/>
+  <text x="35" y="108" text-anchor="middle" font-size="7" fill="#fff">3</text>
+  <circle cx="165" cy="105" r="8" fill="#e67700"/>
+  <text x="165" y="108" text-anchor="middle" font-size="7" fill="#fff">4</text>
+  <path d="M 43 35 L 157 35 L 43 105 L 157 105" fill="none" stroke="#868e96" stroke-width="2" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#868e96"/></marker></defs>
+  <text x="100" y="132" text-anchor="middle" font-size="8" fill="#495057">Z pattern</text>
+</svg>

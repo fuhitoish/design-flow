@@ -20,6 +20,13 @@ import {
   today,
 } from './store.js';
 import { createBellagioSample } from './sample.js';
+import {
+  loadPatterns,
+  patternsForStep,
+  svgUrl,
+  groupByCategory,
+  CATEGORY_LABELS,
+} from './patterns.js';
 
 let state = {
   view: 'dashboard',
@@ -267,13 +274,24 @@ function renderStepContent(p, key) {
 function renderCoreStep(p, key) {
   const def = CORE_STEPS[key];
   const ph = PHASE_MAP[key];
-  return stepShell(def.title, def.subtitle, ph, renderFields(p, key, def.fields), renderChecks(p, key, def.checks), renderRetro(p));
+  const patternHtml = key === '4' ? renderPatternSection() : '';
+  return stepShell(def.title, def.subtitle, ph, patternHtml, renderFields(p, key, def.fields), renderChecks(p, key, def.checks), renderRetro(p));
 }
 
 function renderModuleStep(p) {
   const def = MODULE_CHECKS[p.moduleType];
   const ph = PHASE_MAP['5'];
-  return stepShell(def.title, def.subtitle, ph, renderFields(p, '5', def.fields), renderChecks(p, '5', def.checks), renderRetro(p));
+  return stepShell(def.title, def.subtitle, ph, renderPatternSection(), renderFields(p, '5', def.fields), renderChecks(p, '5', def.checks), renderRetro(p));
+}
+
+function renderPatternSection() {
+  return `
+    <div class="card pattern-card-wrap" id="pattern-picker">
+      <h3>型ライブラリ</h3>
+      <p class="hint">配色・レイアウト・台割などの型を選んで記入欄に反映できます（<a href="../../knowledge/patterns/" target="_blank" rel="noopener">DPL</a>）。</p>
+      <p class="pattern-loading">型を読み込み中…</p>
+    </div>
+  `;
 }
 
 function renderCopyStep(p) {
@@ -288,6 +306,7 @@ function renderCopyStep(p) {
     COPY_STEP.title,
     COPY_STEP.subtitle,
     ph,
+    '',
     skipBlock + (p.copySkipped ? '<p class="hint">スキップ時は status に記録して次へ進めます。</p>' : renderFields(p, 'copy', COPY_STEP.fields)),
     p.copySkipped ? '' : renderChecks(p, 'copy', COPY_STEP.checks),
     renderRetro(p)
@@ -337,16 +356,17 @@ function renderFinalGate(p) {
 function renderProductionStep(p) {
   const def = PRODUCTION_STEP;
   const ph = PHASE_MAP['6'];
-  return stepShell(def.title, def.subtitle, ph, renderFields(p, '6', def.fields), renderChecks(p, '6', def.checks), renderRetro(p), true);
+  return stepShell(def.title, def.subtitle, ph, '', renderFields(p, '6', def.fields), renderChecks(p, '6', def.checks), renderRetro(p), true);
 }
 
-function stepShell(title, subtitle, ph, fieldsHtml, checksHtml, retroHtml, isFinal = false) {
+function stepShell(title, subtitle, ph, patternHtml, fieldsHtml, checksHtml, retroHtml, isFinal = false) {
   return `
     <div class="step-header">
       <p class="section-label">${ph.industry} · ${ph.diamond}</p>
       <h2>${title}</h2>
       <p class="step-sub">${subtitle}</p>
     </div>
+    ${patternHtml || ''}
     ${fieldsHtml ? `<div class="card"><h3>記入</h3>${fieldsHtml}</div>` : ''}
     ${checksHtml ? `<div class="card"><h3>チェックリスト</h3>${checksHtml}</div>` : ''}
     <div class="card">
@@ -523,6 +543,76 @@ function bindProject(p) {
   });
 
   updateCompleteHint(p);
+  mountPatternPicker(p, state.stepKey);
+}
+
+async function mountPatternPicker(p, stepKey) {
+  const el = $('#pattern-picker');
+  if (!el || (stepKey !== '4' && stepKey !== '5')) return;
+  try {
+    const { manifest, patterns } = await loadPatterns();
+    const items = patternsForStep(manifest, patterns, stepKey, p.moduleType);
+    if (!items.length) {
+      el.querySelector('.pattern-loading')?.remove();
+      el.insertAdjacentHTML('beforeend', '<p class="hint">この Step で使える型がありません。</p>');
+      return;
+    }
+    const grouped = groupByCategory(items);
+    const applied = new Set(p.appliedPatterns?.[stepKey] || []);
+    let html = '<div class="pattern-groups">';
+    for (const [cat, list] of Object.entries(grouped)) {
+      html += `<div class="pattern-group"><h4>${esc(CATEGORY_LABELS[cat] || cat)}</h4><div class="pattern-grid">`;
+      html += list.map((pt) => {
+        const img = pt.svg
+          ? `<img src="${esc(svgUrl(pt))}" alt="" class="pattern-thumb" loading="lazy">`
+          : '<div class="pattern-thumb pattern-thumb-empty">—</div>';
+        const on = applied.has(pt.id) ? ' applied' : '';
+        return `
+          <article class="pattern-item${on}" data-pattern-id="${esc(pt.id)}">
+            ${img}
+            <div class="pattern-body">
+              <strong>${esc(pt.name)}</strong>
+              <p>${esc(pt.summary)}</p>
+              <button type="button" class="btn btn-sm btn-secondary btn-apply-pattern" data-pattern-id="${esc(pt.id)}">
+                ${applied.has(pt.id) ? '再適用' : '適用'}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+      html += '</div></div>';
+    }
+    html += '</div>';
+    el.querySelector('.pattern-loading')?.remove();
+    el.insertAdjacentHTML('beforeend', html);
+    $$('.btn-apply-pattern', el).forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const { patterns: all } = await loadPatterns();
+        const pattern = all.find((x) => x.id === btn.dataset.patternId);
+        if (pattern) applyPattern(p, pattern, stepKey);
+      });
+    });
+  } catch {
+    el.querySelector('.pattern-loading')?.remove();
+    el.insertAdjacentHTML(
+      'beforeend',
+      '<p class="hint">型ライブラリを読み込めませんでした。GitHub Pages Staging またはローカル HTTP サーバーで開いてください。</p>'
+    );
+  }
+}
+
+function applyPattern(p, pattern, stepKey) {
+  const { field, template } = pattern.apply;
+  if (!p.fields[stepKey]) p.fields[stepKey] = {};
+  const existing = p.fields[stepKey][field] || '';
+  p.fields[stepKey][field] = existing ? `${existing}\n\n${template}` : template;
+  if (!p.appliedPatterns) p.appliedPatterns = {};
+  if (!p.appliedPatterns[stepKey]) p.appliedPatterns[stepKey] = [];
+  if (!p.appliedPatterns[stepKey].includes(pattern.id)) {
+    p.appliedPatterns[stepKey].push(pattern.id);
+  }
+  save(p);
+  render();
 }
 
 function updateCompleteHint(p) {

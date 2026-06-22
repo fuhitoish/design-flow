@@ -1,0 +1,9 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="A4一段組">
+  <rect width="200" height="140" fill="#f8f9fa"/>
+  <rect x="55" y="10" width="90" height="120" fill="#fff" stroke="#868e96"/>
+  <rect x="63" y="18" width="74" height="104" fill="none" stroke="#4c6ef5" stroke-dasharray="3 2"/>
+  <line x1="63" y1="30" x2="137" y2="30" stroke="#dee2e6"/>
+  <line x1="63" y1="42" x2="137" y2="42" stroke="#dee2e6"/>
+  <line x1="63" y1="54" x2="137" y2="54" stroke="#dee2e6"/>
+  <text x="100" y="132" text-anchor="middle" font-size="8" fill="#495057">A4 · 1 column</text>
+</svg>

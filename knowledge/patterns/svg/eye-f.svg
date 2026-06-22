@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="FÑ¿üó–Ú">
+  <rect width="200" height="140" fill="#f8f9fa"/>
+  <rect x="15" y="15" width="170" height="110" fill="#fff" stroke="#dee2e6"/>
+  <line x1="25" y1="35" x2="175" y2="35" stroke="#4c6ef5" stroke-width="3"/>
+  <text x="30" y="32" font-size="7" fill="#4c6ef5">1</text>
+  <line x1="25" y1="55" x2="140" y2="55" stroke="#4c6ef5" stroke-width="2"/>
+  <text x="30" y="52" font-size="7" fill="#4c6ef5">2</text>
+  <line x1="25" y1="75" x2="60" y2="75" stroke="#4c6ef5" stroke-width="2"/>
+  <text x="30" y="72" font-size="7" fill="#4c6ef5">3</text>
+  <rect x="25" y="88" width="150" height="30" fill="#e9ecef" stroke="#adb5bd"/>
+  <text x="30" y="105" font-size="7" fill="#495057">4 body</text>
+  <text x="100" y="132" text-anchor="middle" font-size="8" fill="#495057">F pattern</text>
+</svg>

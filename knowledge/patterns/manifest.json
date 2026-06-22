@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-06-22",
+  "description": "Design Pattern Library — Phase K1（P0 初回 15 型 + 拡張候補）",
+  "categories": [
+    { "id": "color", "label": "配色", "file": "color.json" },
+    { "id": "typography", "label": "タイポグラフィ", "file": "typography.json" },
+    { "id": "grid", "label": "グリッド・レイアウト", "file": "grid.json" },
+    { "id": "eye", "label": "視線・構図", "file": "eye.json" },
+    { "id": "proportion", "label": "比率", "file": "proportion.json" },
+    { "id": "print", "label": "印刷・モジュール A", "file": "print.json" }
+  ],
+  "p0_release": [
+    "COLOR-SCHEME-01",
+    "COLOR-SCHEME-02",
+    "COLOR-SCHEME-03",
+    "COLOR-ROLE-SET",
+    "GRID-A4-1COL",
+    "GRID-MARGIN-SET",
+    "EYE-Z",
+    "EYE-F",
+    "EYE-CENTER",
+    "COMP-RULE-THIRDS",
+    "PROP-SILVER",
+    "TYPE-SCALE-01",
+    "PRINT-BIND-8P",
+    "PRINT-FOLDER-2PKT",
+    "PRINT-PAGE-ROLES-8P"
+  ]
+}

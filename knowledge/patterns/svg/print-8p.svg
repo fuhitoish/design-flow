@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 160" role="img" aria-label="8P-´Xðr">
+  <rect width="220" height="160" fill="#f8f9fa"/>
+  <text x="110" y="14" text-anchor="middle" font-size="8" fill="#495057">saddle stitch 8P  spread view</text>
+  <g font-size="7" fill="#495057">
+    <rect x="10" y="22" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="32" y="55" text-anchor="middle">8</text>
+    <rect x="57" y="22" width="45" height="60" fill="#2d4a3e" stroke="#868e96"/><text x="79" y="55" text-anchor="middle" fill="#fff">h1</text>
+    <rect x="118" y="22" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="140" y="55" text-anchor="middle">2</text>
+    <rect x="165" y="22" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="187" y="55" text-anchor="middle">7</text>
+    <rect x="10" y="88" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="32" y="121" text-anchor="middle">6</text>
+    <rect x="57" y="88" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="79" y="121" text-anchor="middle">3</text>
+    <rect x="118" y="88" width="45" height="60" fill="#fff" stroke="#868e96"/><text x="140" y="121" text-anchor="middle">4</text>
+    <rect x="165" y="88" width="45" height="60" fill="#e9ecef" stroke="#868e96"/><text x="187" y="121" text-anchor="middle">h8</text>
+  </g>
+</svg>

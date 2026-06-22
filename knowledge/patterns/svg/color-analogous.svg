@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" role="img" aria-label="¢Êí¬¹Mr">
+  <rect width="200" height="120" fill="#f8f9fa"/>
+  <circle cx="100" cy="55" r="40" fill="none" stroke="#dee2e6" stroke-width="2"/>
+  <path d="M 100 15 A 40 40 0 0 1 135 75" fill="none" stroke="#1864ab" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 135 75 A 40 40 0 0 1 65 75" fill="none" stroke="#0c8599" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 65 75 A 40 40 0 0 1 100 15" fill="none" stroke="#2b8a3e" stroke-width="12" stroke-linecap="round"/>
+  <text x="100" y="110" text-anchor="middle" font-size="8" fill="#495057">adjacent hues</text>
+</svg>

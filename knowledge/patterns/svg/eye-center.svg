@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="-ÃÆ-‹">
+  <rect width="200" height="140" fill="#f8f9fa"/>
+  <rect x="15" y="15" width="170" height="110" fill="#fff" stroke="#dee2e6"/>
+  <circle cx="100" cy="70" r="35" fill="#2d4a3e" opacity="0.9"/>
+  <circle cx="100" cy="70" r="50" fill="none" stroke="#b8975a" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="100" y="73" text-anchor="middle" font-size="8" fill="#f5f0e8">focus</text>
+  <text x="100" y="132" text-anchor="middle" font-size="8" fill="#495057">center focal</text>
+</svg>
