@@ -5,6 +5,7 @@ Design Flow の設計・ドキュメント一式です。
 | ファイル | 内容 |
 |---|---|
 | [PLAN.md](PLAN.md) | **正本**（v1.1） |
+| [REQUIREMENTS.md](REQUIREMENTS.md) | **要件まとめ**（プロダクト要件・実装状況） |
 | [REVISE_PLAN.md](REVISE_PLAN.md) | **試用フィードバック反映・実装計画**（v1.2 草案） |
 | [glossary.md](glossary.md) | 用語集（UI ラベル基準） |
 | [../knowledge/](../knowledge/) | **デザイン知識の収集**（DPL 前段階） |
