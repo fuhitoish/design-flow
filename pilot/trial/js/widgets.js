@@ -46,16 +46,16 @@ function esc(s) { return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&
 
 export function ensureExtras(p) {
   const e = ex(p);
-  if (!e.colorRoles) {
-    e.colorRoles = {};
-    COLOR_ROLES.forEach((r) => { e.colorRoles[r.id] = { hex: '', name: '', reason: '' }; });
-  }
-  if (!e.copySections.length) e.copySections.push({ name: '表紙', chars: '40', draft: '' });
+  if (!e.colorRoles) e.colorRoles = {};
+  COLOR_ROLES.forEach((r) => {
+    if (!e.colorRoles[r.id]) e.colorRoles[r.id] = { hex: '', name: '', reason: '' };
+  });
   if (!e.typo) e.typo = { heading: 'Noto Serif JP', body: 'Noto Sans JP', hSize: '20', bodySize: '10', en: 'DM Sans' };
   if (!e.personas) e.personas = [];
   if (!e.inspirationUrls) e.inspirationUrls = [];
   if (!e.moodUrls) e.moodUrls = [];
   if (!e.copySections) e.copySections = [];
+  if (!e.copySections.length) e.copySections.push({ name: '表紙', chars: '40', draft: '' });
   if (!e.spec) e.spec = { size: 'A4', pages: '8', binding: 'saddle', paper: 'coat', qty: '', deadline: '' };
   if (!e.pageMapPages) e.pageMapPages = DEFAULT_PAGES.map((x) => ({ ...x }));
   if (!e.wireframeZones) e.wireframeZones = {};
@@ -198,7 +198,7 @@ function copySectionsWidget(p) {
 function colorWidget(p) {
   const sw = COLOR_ROLES.map((r) => `<div class="swatch" style="background:${esc(ex(p).colorRoles[r.id]?.hex || '#ddd')}" title="${r.label}"></div>`).join('');
   const rows = COLOR_ROLES.map((r) => {
-    const v = ex(p).colorRoles[r.id];
+    const v = ex(p).colorRoles[r.id] || { hex: '', name: '', reason: '' };
     return `<div class="color-row"><span>${r.label}</span><input type="color" data-color="${r.id}.hex" value="${esc(v.hex || '#cccccc')}"><input data-color="${r.id}.hex" value="${esc(v.hex)}" placeholder="#hex"><input data-color="${r.id}.name" value="${esc(v.name)}" placeholder="色名"><input data-color="${r.id}.reason" value="${esc(v.reason)}" placeholder="理由"></div>`;
   }).join('');
   return `<div class="widget-card"><h4>カラーロール ${helpTip('colorRoles')}</h4><div class="swatch-row">${sw}</div>${rows}</div>`;
