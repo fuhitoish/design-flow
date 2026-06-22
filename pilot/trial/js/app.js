@@ -596,7 +596,7 @@ async function mountPatternPicker(p, stepKey) {
     el.querySelector('.pattern-loading')?.remove();
     el.insertAdjacentHTML(
       'beforeend',
-      '<p class="hint">型ライブラリを読み込めませんでした。GitHub Pages Staging またはローカル HTTP サーバーで開いてください。</p>'
+      '<p class="hint">型ライブラリの読み込みに失敗しました。ページを再読み込みしてください。解決しない場合は開発者に連絡してください。</p>'
     );
   }
 }

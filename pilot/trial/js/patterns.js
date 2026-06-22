@@ -1,6 +1,7 @@
 /** Design Pattern Library loader — knowledge/patterns/ */
 
-const PATTERNS_ROOT = new URL('../../knowledge/patterns/', import.meta.url);
+// js/ → trial/ → pilot/ → repo root → knowledge/patterns/
+const PATTERNS_ROOT = new URL('../../../knowledge/patterns/', import.meta.url);
 
 let cache = null;
 
