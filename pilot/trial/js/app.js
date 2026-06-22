@@ -85,7 +85,7 @@ function renderDashboard() {
   const projects = loadAll().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
   const onStaging = location.hostname.endsWith('github.io');
   const stagingNote = onStaging
-    ? '<p class="staging-note">Staging — この URL をブックマークしてください</p>'
+    ? '<p class="staging-note">Staging · DPL v0.1 — 型ライブラリは Step 4/5 に表示</p>'
     : '<p class="staging-note local">ローカル実行中 — 日常利用は <a href="https://fuhitoish.github.io/design-flow/pilot/trial/" target="_blank" rel="noopener">Staging</a> がおすすめ</p>';
   return `
     <header class="top-bar">
