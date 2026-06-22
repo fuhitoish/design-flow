@@ -25,12 +25,14 @@ export const CORE_STEPS = {
     title: 'Step 1 — 要件定義',
     subtitle: '何のため・誰に・どんな制約で作るか。モジュールを選ぶ。',
     fields: [
-      { id: 'projectName', label: '制作物名', type: 'text', required: true },
-      { id: 'background', label: '企画背景（なぜ今必要か）', type: 'textarea' },
-      { id: 'goal', label: '最終ゴール（1〜2文）', type: 'textarea', required: true },
-      { id: 'target', label: 'メインターゲット（一言）', type: 'text' },
-      { id: 'specInitial', label: '媒体・仕様（分かっている範囲）', type: 'textarea' },
-      { id: 'specTodo', label: '要確認事項', type: 'text' },
+      { id: 'projectName', label: '制作物名', type: 'text', required: true, help: 'projectName' },
+      { id: 'background', label: '企画背景（なぜ今必要か）', type: 'textarea', help: 'background' },
+      { id: 'goal', label: '最終ゴール（1〜2文）', type: 'textarea', required: true, help: 'goal' },
+      { id: 'target', label: 'メインターゲット（一言）', type: 'text', help: 'target' },
+      { id: 'specInitial', label: '媒体・仕様（分かっている範囲）', type: 'textarea', help: 'specInitial' },
+      { id: 'specTodo', label: '要確認事項', type: 'text', help: 'specTodo' },
+      { id: 'mustHaveList', label: '必須要素リスト + 優先度', type: 'textarea', help: 'mustHaveList' },
+      { id: 'constraints', label: '制約・ルール', type: 'textarea', help: 'constraints' },
       { id: 'moduleReason', label: 'モジュール選択理由', type: 'text' },
     ],
     checks: [
@@ -49,10 +51,11 @@ export const CORE_STEPS = {
     title: 'Step 2 — リサーチ・戦略',
     subtitle: '競合・トレンド・差別化。やってはいけないことを明文化。',
     fields: [
-      { id: 'personaDeep', label: 'ペルソナ深堀り（3〜5点）', type: 'textarea' },
-      { id: 'competitors', label: '競合・参考企業の分析メモ', type: 'textarea' },
-      { id: 'dontDo', label: 'やってはいけないこと', type: 'textarea', required: true },
-      { id: 'trends', label: 'トレンド（取り入れる / 無視する）', type: 'textarea' },
+      { id: 'personaDeep', label: 'ペルソナ深堀り（カードで登録）', type: 'textarea', help: 'personaDeep' },
+      { id: 'competitors', label: '競合・参考企業の分析メモ', type: 'textarea', help: 'competitors' },
+      { id: 'dontDo', label: 'やってはいけないこと', type: 'textarea', required: true, help: 'dontDo' },
+      { id: 'trends', label: 'トレンド（取り入れる / 無視する）', type: 'textarea', help: 'trends' },
+      { id: 'inspirationUrls', label: 'インスピレーション画像メモ', type: 'textarea', help: 'inspirationUrls' },
     ],
     checks: [
       { id: 'c1', label: 'ペルソナの深堀り（3〜5点）' },
@@ -67,12 +70,12 @@ export const CORE_STEPS = {
     title: 'Step 3 — コンセプト・仮原稿',
     subtitle: 'キーメッセージ・方向性・構成。原稿は仮で OK（字数は本番想定）。',
     fields: [
-      { id: 'keyMessage', label: 'キーメッセージ（1〜2文）', type: 'textarea', required: true },
-      { id: 'visualDirection', label: 'ビジュアル方向性（形容詞 2〜3 + メモ）', type: 'textarea' },
-      { id: 'keywords', label: 'キーワード（3〜5個）', type: 'text' },
-      { id: 'copyDraft', label: '仮原稿（copy-draft）', type: 'textarea', rows: 8 },
-      { id: 'charCount', label: 'セクション別文字数見積もり', type: 'textarea' },
-      { id: 'assets', label: '素材の確保状況', type: 'textarea' },
+      { id: 'keyMessage', label: '一番伝えたいこと（1〜2文）', type: 'textarea', required: true, help: 'keyMessage' },
+      { id: 'visualDirection', label: 'ビジュアル方向性（形容詞 2〜3 + メモ）', type: 'textarea', help: 'visualDirection' },
+      { id: 'keywords', label: 'キーワード（3〜5個）', type: 'text', help: 'keywords' },
+      { id: 'copyDraft', label: '仮原稿', type: 'textarea', rows: 8, help: 'copyDraft' },
+      { id: 'charCount', label: 'セクション別文字数（表で設定）', type: 'textarea', help: 'charCount' },
+      { id: 'assets', label: '素材の確保状況', type: 'textarea', help: 'assets' },
     ],
     checks: [
       { id: 'c1', label: 'キーメッセージ策定（1〜2文）' },
@@ -88,10 +91,10 @@ export const CORE_STEPS = {
     title: 'Step 4 — トンマナ確定 ★',
     subtitle: '色・フォント・ビジュアル・グリッド。以降変更しない。',
     fields: [
-      { id: 'colors', label: 'カラーパレット（色名・RGB/CMYK・理由）', type: 'textarea', rows: 5 },
-      { id: 'typography', label: 'タイポグラフィ（フォント・サイズ階層）', type: 'textarea', rows: 4 },
-      { id: 'visualImg', label: '画像・ビジュアル方向', type: 'textarea' },
-      { id: 'grid', label: 'グリッド・余白ルール', type: 'textarea' },
+      { id: 'colors', label: 'カラーパレット（ロール入力で自動生成）', type: 'textarea', rows: 4, help: 'colorRoles' },
+      { id: 'typography', label: 'タイポグラフィ（プレビューで設定）', type: 'textarea', rows: 3, help: 'typography' },
+      { id: 'visualImg', label: '画像・ビジュアル方向', type: 'textarea', help: 'visualImg' },
+      { id: 'grid', label: 'グリッド・余白ルール', type: 'textarea', help: 'grid' },
       { id: 'brandOverride', label: '既存ガイドライン適用メモ（あれば）', type: 'text' },
     ],
     checks: [
@@ -113,10 +116,10 @@ export const MODULE_CHECKS = {
     title: 'Step 5 — モジュール A（パンフレット）★',
     subtitle: '仕様・台割・WF・画像スペース。仮原稿でレイアウト実証。',
     fields: [
-      { id: 'spec', label: '仕様（サイズ・ページ数・用紙・加工・部数・納期）', type: 'textarea' },
-      { id: 'pageMap', label: '台割（ページ役割 × 原稿割り当て）', type: 'textarea', rows: 6 },
-      { id: 'wireframe', label: 'WF メモ（ページ別・原稿収まり）', type: 'textarea', rows: 6 },
-      { id: 'imageSpec', label: '画像スペース指定', type: 'textarea' },
+      { id: 'spec', label: '仕様（セレクタで確定）', type: 'textarea', help: 'spec' },
+      { id: 'pageMap', label: '台割（ページ役割 × 原稿割り当て）', type: 'textarea', rows: 4, help: 'pageMap' },
+      { id: 'wireframe', label: '配置ラフ（ワイヤーフレーム）', type: 'textarea', rows: 4, help: 'wireframe' },
+      { id: 'imageSpec', label: '写真の置き場', type: 'textarea', help: 'imageSpec' },
     ],
     checks: [
       { id: 'c1', label: '仕様確定（サイズ・ページ数・用紙・折り・加工・部数・納期）' },
@@ -183,9 +186,9 @@ export const COPY_STEP = {
   title: '本番原稿ロック',
   subtitle: '仮原稿を本番テキストに差し替え。文案変更なしならスキップ可。',
   fields: [
-    { id: 'copyMaster', label: '本番原稿（copy-master）', type: 'textarea', rows: 8 },
-    { id: 'approval', label: 'クライアント承認メモ', type: 'text' },
-    { id: 'wfCheck', label: 'WF との整合確認メモ', type: 'textarea' },
+    { id: 'copyMaster', label: '本番原稿（割付エリアで入力）', type: 'textarea', rows: 6, help: 'copyMaster' },
+    { id: 'approval', label: '承認記録（日付・担当者）', type: 'text', help: 'approval' },
+    { id: 'wfCheck', label: '配置ラフとの整合メモ', type: 'textarea', help: 'wfCheck' },
   ],
   checks: [
     { id: 'c1', label: '全セクションの本番テキスト確定（承認含む）' },
@@ -206,9 +209,9 @@ export const FINAL_GATE = {
     { id: 'g6', label: '実装を「ほぼ想像」できる', retro: 'Step 5' },
   ],
   memoFields: [
-    { id: 'memoKeyMessage', label: 'キーメッセージ口述メモ' },
-    { id: 'memoColor', label: '色の理由口述メモ' },
-    { id: 'memoLayout', label: 'レイアウト意図口述メモ' },
+    { id: 'memoKeyMessage', label: '一番伝えたいこと — 確認メモ', help: 'keyMessage' },
+    { id: 'memoColor', label: '色の理由 — 確認メモ', help: 'colorRoles' },
+    { id: 'memoLayout', label: 'レイアウト意図 — 確認メモ', help: 'wireframe' },
   ],
 };
 
@@ -216,9 +219,9 @@ export const PRODUCTION_STEP = {
   title: 'Step 6 — 制作・納品',
   subtitle: '決定どおりに実装。レイアウト・色・構成の変更はしない。',
   fields: [
-    { id: 'tool', label: '使用ツール', type: 'text' },
-    { id: 'deliverable', label: '納品物', type: 'textarea' },
-    { id: 'notes', label: '制作メモ', type: 'textarea' },
+    { id: 'tool', label: '使用ツール（アイコンから選択）', type: 'text', help: 'tool' },
+    { id: 'deliverable', label: '納品物（最終ファイル）', type: 'textarea', help: 'deliverable' },
+    { id: 'notes', label: '制作メモ', type: 'textarea', help: 'notes' },
   ],
   checks: [
     { id: 'c1', label: '確定レイアウト・本番原稿・素材を配置' },

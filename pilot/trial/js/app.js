@@ -27,6 +27,9 @@ import {
   groupByCategory,
   CATEGORY_LABELS,
 } from './patterns.js';
+import { helpTip } from './glossary.js';
+import { syncAutoChecks } from './check-rules.js';
+import { renderStepWidgets, bindStepWidgets, ensureExtras, renderGateContext } from './widgets.js';
 
 let state = {
   view: 'dashboard',
@@ -73,6 +76,8 @@ function render() {
       navigate('dashboard');
       return;
     }
+    ensureExtras(project);
+    syncAutoChecks(project);
     app.innerHTML = renderProject(project);
     bindProject(project);
     lucide.createIcons();
@@ -85,7 +90,7 @@ function renderDashboard() {
   const projects = loadAll().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
   const onStaging = location.hostname.endsWith('github.io');
   const stagingNote = onStaging
-    ? '<p class="staging-note">Staging · DPL v0.1 — 型ライブラリは Step 4/5 に表示</p>'
+    ? '<p class="staging-note">Staging · v0.2 — フィードバック対応（自動チェック・カラー・台割など）</p>'
     : '<p class="staging-note local">ローカル実行中 — 日常利用は <a href="https://fuhitoish.github.io/design-flow/pilot/trial/" target="_blank" rel="noopener">Staging</a> がおすすめ</p>';
   return `
     <header class="top-bar">
@@ -274,14 +279,20 @@ function renderStepContent(p, key) {
 function renderCoreStep(p, key) {
   const def = CORE_STEPS[key];
   const ph = PHASE_MAP[key];
+  ensureExtras(p);
   const patternHtml = key === '4' ? renderPatternSection() : '';
-  return stepShell(def.title, def.subtitle, ph, patternHtml, renderFields(p, key, def.fields), renderChecks(p, key, def.checks), renderRetro(p));
+  const widgets = renderStepWidgets(p, key);
+  const fields = renderFields(p, key, def.fields, key === '4' || key === '5');
+  return stepShell(def.title, def.subtitle, ph, patternHtml, widgets, fields, renderChecks(p, key, def.checks), renderRetro(p));
 }
 
 function renderModuleStep(p) {
   const def = MODULE_CHECKS[p.moduleType];
   const ph = PHASE_MAP['5'];
-  return stepShell(def.title, def.subtitle, ph, renderPatternSection(), renderFields(p, '5', def.fields), renderChecks(p, '5', def.checks), renderRetro(p));
+  ensureExtras(p);
+  const widgets = renderStepWidgets(p, '5');
+  const fields = renderFields(p, '5', def.fields, true);
+  return stepShell(def.title, def.subtitle, ph, renderPatternSection(), widgets, fields, renderChecks(p, '5', def.checks), renderRetro(p));
 }
 
 function renderPatternSection() {
@@ -307,6 +318,7 @@ function renderCopyStep(p) {
     COPY_STEP.subtitle,
     ph,
     '',
+    p.copySkipped ? '' : renderStepWidgets(p, 'copy'),
     skipBlock + (p.copySkipped ? '<p class="hint">スキップ時は status に記録して次へ進めます。</p>' : renderFields(p, 'copy', COPY_STEP.fields)),
     p.copySkipped ? '' : renderChecks(p, 'copy', COPY_STEP.checks),
     renderRetro(p)
@@ -330,7 +342,7 @@ function renderFinalGate(p) {
   }).join('');
 
   const memos = FINAL_GATE.memoFields.map((f) => `
-    <label>${f.label}<input type="text" data-gate-memo="${f.id}" value="${esc(p.gateMemo?.[f.id] || '')}"></label>
+    <label>${f.label} ${f.help ? helpTip(f.help) : ''}<input type="text" data-gate-memo="${f.id}" value="${esc(p.gateMemo?.[f.id] || '')}" placeholder="自分に説明できることを1行で"></label>
   `).join('');
 
   const allYes = FINAL_GATE.items.every((i) => p.gateAnswers?.[i.id] === 'yes');
@@ -341,8 +353,9 @@ function renderFinalGate(p) {
       <h2>${FINAL_GATE.title}</h2>
       <p class="step-sub">${FINAL_GATE.subtitle}</p>
     </div>
+    ${renderGateContext(p)}
     <div class="card gate-card">${items}</div>
-    <div class="card"><h3>口述メモ（任意）</h3><div class="field-grid">${memos}</div></div>
+    <div class="card"><h3>確認メモ（任意）</h3><p class="hint">口述ではなく、確認できたことを平文で残す欄です</p><div class="field-grid">${memos}</div></div>
     ${renderRetro(p)}
     <div class="step-actions">
       <button type="button" class="btn btn-primary" id="btn-complete" ${allYes ? '' : 'disabled'}>
@@ -356,10 +369,14 @@ function renderFinalGate(p) {
 function renderProductionStep(p) {
   const def = PRODUCTION_STEP;
   const ph = PHASE_MAP['6'];
-  return stepShell(def.title, def.subtitle, ph, '', renderFields(p, '6', def.fields), renderChecks(p, '6', def.checks), renderRetro(p), true);
+  ensureExtras(p);
+  return stepShell(def.title, def.subtitle, ph, '', renderStepWidgets(p, '6'), renderFields(p, '6', def.fields), renderChecks(p, '6', def.checks), renderRetro(p), true);
 }
 
-function stepShell(title, subtitle, ph, patternHtml, fieldsHtml, checksHtml, retroHtml, isFinal = false) {
+function stepShell(title, subtitle, ph, patternHtml, widgetsHtml, fieldsHtml, checksHtml, retroHtml, isFinal = false) {
+  const fieldsBlock = fieldsHtml
+    ? `<div class="card"><h3>テキスト記録（自動同期）</h3>${fieldsHtml}</div>`
+    : '';
   return `
     <div class="step-header">
       <p class="section-label">${ph.industry} · ${ph.diamond}</p>
@@ -367,7 +384,8 @@ function stepShell(title, subtitle, ph, patternHtml, fieldsHtml, checksHtml, ret
       <p class="step-sub">${subtitle}</p>
     </div>
     ${patternHtml || ''}
-    ${fieldsHtml ? `<div class="card"><h3>記入</h3>${fieldsHtml}</div>` : ''}
+    ${widgetsHtml || ''}
+    ${fieldsBlock}
     ${checksHtml ? `<div class="card"><h3>チェックリスト</h3>${checksHtml}</div>` : ''}
     <div class="card">
       <h3>この Step のメモ</h3>
@@ -385,31 +403,39 @@ function stepShell(title, subtitle, ph, patternHtml, fieldsHtml, checksHtml, ret
   `;
 }
 
-function renderFields(p, key, fields) {
+function renderFields(p, key, fields, collapse = false) {
   if (!fields?.length) return '';
-  return `<div class="field-grid">${fields.map((f) => {
+  const hidden = collapse ? ' class="field-grid collapsed-fields"' : ' class="field-grid"';
+  return `<div${hidden}>${fields.map((f) => {
     const val = p.fields?.[key]?.[f.id] || '';
+    const tip = f.help ? helpTip(f.help) : '';
+    const label = `${f.label} ${tip}`;
     if (f.type === 'textarea') {
-      return `<label>${f.label}<textarea data-field="${key}.${f.id}" rows="${f.rows || 3}">${esc(val)}</textarea></label>`;
+      return `<label>${label}<textarea data-field="${key}.${f.id}" rows="${f.rows || 3}">${esc(val)}</textarea></label>`;
     }
-    return `<label>${f.label}<input type="text" data-field="${key}.${f.id}" value="${esc(val)}"></label>`;
+    return `<label>${label}<input type="text" data-field="${key}.${f.id}" value="${esc(val)}"></label>`;
   }).join('')}</div>`;
 }
 
 function renderChecks(p, key, checks) {
   if (!checks?.length) return '';
+  syncAutoChecks(p);
   const done = checks.filter((c) => p.checks?.[key]?.[c.id]).length;
   return `
-    <p class="check-progress">${done} / ${checks.length} 完了</p>
-    <ul class="check-list">
-      ${checks.map((c) => `
-        <li>
+    <p class="check-progress">${done} / ${checks.length} 自動完了</p>
+    <p class="hint">入力が充足すると自動でチェックされます（手動 ON 不要）</p>
+    <ul class="check-list auto-checks">
+      ${checks.map((c) => {
+        const on = p.checks?.[key]?.[c.id];
+        return `
+        <li class="${on ? 'done' : 'pending'}">
           <label>
-            <input type="checkbox" data-check="${key}.${c.id}" ${p.checks?.[key]?.[c.id] ? 'checked' : ''}>
+            <input type="checkbox" disabled ${on ? 'checked' : ''}>
             ${esc(c.label)}
           </label>
         </li>
-      `).join('')}
+      `;
+      }).join('')}
     </ul>
   `;
 }
@@ -475,10 +501,28 @@ function bindProject(p) {
       p.fields[key][id] = el.value;
       if (key === '1' && id === 'projectName') p.name = el.value;
       save(p);
-      updateCompleteHint(p);
+      syncAndRefresh(p);
     });
   });
 
+  bindStepWidgets(p, state.stepKey, (rerender = true) => {
+    save(p);
+    if (rerender) render();
+    else syncAndRefresh(p);
+  });
+
+  function syncAndRefresh(proj) {
+    syncAutoChecks(proj);
+    updateCompleteHint(proj);
+    const prog = $('.check-progress');
+    if (prog) {
+      const checks = getChecksForKey(proj, state.stepKey);
+      const done = checks.filter((c) => proj.checks?.[state.stepKey]?.[c.id]).length;
+      prog.textContent = `${done} / ${checks.length} 自動完了`;
+    }
+  }
+
+  /* manual checks removed — auto only */
   $$('[data-check]').forEach((el) => {
     el.addEventListener('change', () => {
       const [key, id] = el.dataset.check.split('.');
@@ -645,6 +689,7 @@ function completeStep(p) {
   const nextKey = FLOW_ORDER[idx + 1];
   if (nextKey) {
     p.currentStepKey = nextKey;
+    if (nextKey === '6') p.lifecyclePhase = 'produce';
     save(p);
     navigate(`project/${p.id}/${nextKey}`);
   }
@@ -655,6 +700,7 @@ function completeProject(p) {
   if (!p.gateLog) p.gateLog = {};
   p.gateLog['6'] = { date: today(), reviewer: p.owner || 'Fuhito', note: '完了' };
   p.currentStepKey = '6';
+  p.lifecyclePhase = 'retro';
   p.nextAction = '納品済み';
   save(p);
   alert('案件を完了として記録しました。');
@@ -662,6 +708,7 @@ function completeProject(p) {
 }
 
 function save(p) {
+  syncAutoChecks(p);
   upsertProject(p);
 }
 
@@ -701,7 +748,7 @@ function getCompleteBlockReason(p, key) {
   if (key === 'copy' && p.copySkipped) return '';
   const checks = getChecksForKey(p, key);
   const missing = checks.filter((c) => !p.checks?.[key]?.[c.id]).length;
-  if (missing) return `チェックリストが ${missing} 件未完了です。`;
+  if (missing) return `自動チェックが ${missing} 件未完了です。上のウィジェットに入力してください。`;
   return '';
 }
 

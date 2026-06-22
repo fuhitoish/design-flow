@@ -428,3 +428,37 @@ body {
 .pattern-body strong { font-size: 0.88rem; display: block; margin-bottom: 0.2rem; }
 .pattern-body p { font-size: 0.75rem; color: var(--muted); margin: 0 0 0.45rem; line-height: 1.35; }
 .pattern-body .btn { font-size: 0.72rem; padding: 0.25rem 0.5rem; }
+
+/* R1 widgets */
+.widget-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem; }
+.widget-card h4 { font-size: 0.92rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem; }
+.help-tip { display: inline-flex; align-items: center; justify-content: center; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 0.7rem; font-weight: 700; cursor: help; flex-shrink: 0; }
+.swatch-row { display: flex; gap: 0.35rem; margin-bottom: 0.75rem; }
+.swatch, .gate-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); display: inline-block; }
+.color-row { display: grid; grid-template-columns: 72px 40px 1fr 1fr 1fr; gap: 0.35rem; align-items: center; margin-bottom: 0.35rem; font-size: 0.8rem; }
+.color-row input[type="color"] { width: 36px; height: 28px; padding: 0; border: none; }
+.typo-fields { display: grid; grid-template-columns: 1fr 80px; gap: 0.5rem; margin-bottom: 0.75rem; }
+.typo-preview { background: var(--bg); padding: 0.75rem; border-radius: 8px; }
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; }
+.pagemap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.5rem; }
+.pagemap-card { border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem; font-size: 0.8rem; }
+.pagemap-card input { width: 100%; margin-top: 0.25rem; font-size: 0.78rem; }
+.wf-canvas { position: relative; height: 200px; background: #fff; border: 2px solid var(--border); border-radius: 8px; }
+.wf-zone { position: absolute; left: 4%; right: 4%; display: flex; gap: 0.5rem; align-items: center; font-size: 0.75rem; }
+.wf-zone input { flex: 1; }
+.tool-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tool-btn { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); cursor: pointer; font-size: 0.75rem; }
+.tool-btn.on { border-color: var(--accent); background: var(--accent-soft); }
+.tool-btn .tool-icon, .tool-btn span:first-child { font-weight: 700; font-size: 0.9rem; }
+.persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.5rem; margin-bottom: 0.5rem; }
+.persona-card { border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.persona-card input, .persona-card textarea { font-size: 0.8rem; }
+.copy-spread { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.copy-spread textarea { width: 100%; font-size: 0.82rem; margin-bottom: 0.35rem; }
+.check-inline { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; }
+.check-list.auto-checks li.done label { color: var(--star); font-weight: 600; }
+.check-list.auto-checks li.pending label { color: var(--muted); }
+.check-list.auto-checks input { opacity: 0.7; }
+.collapsed-fields textarea { max-height: 80px; font-size: 0.8rem; }
+.gate-context { background: var(--accent-soft); border-color: #bac8ff; }
+.section-row { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0.35rem; margin-bottom: 0.35rem; }
