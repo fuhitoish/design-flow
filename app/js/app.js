@@ -76,12 +76,17 @@ function render() {
 
 function renderDashboard() {
   const projects = loadAll().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+  const onStaging = location.hostname.endsWith('github.io');
+  const stagingNote = onStaging
+    ? '<p class="staging-note">Staging — この URL をブックマークしてください</p>'
+    : '<p class="staging-note local">ローカル実行中 — 日常利用は <a href="https://fuhitoish.github.io/design-flow/app/" target="_blank" rel="noopener">Staging</a> がおすすめ</p>';
   return `
     <header class="top-bar">
       <a href="../DOCS/index.html" class="back-link"><i data-lucide="arrow-left"></i> ガイドに戻る</a>
-      <span class="app-badge">試用システム Phase 1</span>
+      <span class="app-badge">${onStaging ? 'Staging' : '試用システム Phase 1'}</span>
     </header>
     <main class="dashboard">
+      ${stagingNote}
       <div class="dashboard-head">
         <div>
           <h1>Design Flow</h1>

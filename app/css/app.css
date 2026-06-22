@@ -103,7 +103,23 @@ body {
 .btn-icon { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1.1rem; }
 
 /* ── Dashboard ── */
-.dashboard { max-width: 1000px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.staging-note {
+  font-size: 0.85rem;
+  background: var(--star-soft);
+  color: var(--star);
+  border: 1px solid #b2f2bb;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.staging-note.local {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: #bac8ff;
+}
+.staging-note a { color: inherit; }
+
 .dashboard-head {
   display: flex;
   justify-content: space-between;
