@@ -12,4 +12,4 @@ core/ — コア・フロー（Step 1〜4）テンプレート
 Step 4 完了後 → templates/modules/ から1つ選んで Step 5 へ。
 本番原稿（copy-master.txt）→ gate/copy-final-lock.txt（Step 6 前）
 
-正本: DOCS/PLAN.md §5
+正本: plan/PLAN.md §5

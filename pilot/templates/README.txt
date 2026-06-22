@@ -66,4 +66,4 @@ templates/ — Design Flow テンプレート一式
 
   合計 40 ファイル（README 除く）
 
-正本: DOCS/PLAN.md v1.1
+正本: plan/PLAN.md v1.1

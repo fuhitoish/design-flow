@@ -5,10 +5,10 @@ $ErrorActionPreference = "SilentlyContinue"
 
 Add-Type -AssemblyName System.Windows.Forms
 
+$RepoRoot = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $Port = 5180
-$Root = $PSScriptRoot
-$Url = "http://127.0.0.1:$Port/app/"
-$LogFile = Join-Path $Root ".design-flow-server.log"
+$Url = "http://127.0.0.1:$Port/pilot/trial/"
+$LogFile = Join-Path $RepoRoot ".design-flow-server.log"
 
 function Test-AppServer {
     try {
@@ -24,7 +24,7 @@ function Start-AppServer {
                 [System.Environment]::GetEnvironmentVariable("Path", "User")
 
     if (Get-Command npx -ErrorAction SilentlyContinue) {
-        $cmd = "Set-Location -LiteralPath '$Root'; npx --yes serve '$Root' -l $Port *>> '$LogFile'"
+        $cmd = "Set-Location -LiteralPath '$RepoRoot'; npx --yes serve '$RepoRoot' -l $Port *>> '$LogFile'"
         Start-Process powershell -ArgumentList @(
             "-NoProfile", "-WindowStyle", "Hidden", "-Command", $cmd
         ) | Out-Null
@@ -32,7 +32,7 @@ function Start-AppServer {
     }
 
     if (Get-Command python -ErrorAction SilentlyContinue) {
-        $cmd = "Set-Location -LiteralPath '$Root'; python -m http.server $Port *>> '$LogFile'"
+        $cmd = "Set-Location -LiteralPath '$RepoRoot'; python -m http.server $Port *>> '$LogFile'"
         Start-Process powershell -ArgumentList @(
             "-NoProfile", "-WindowStyle", "Hidden", "-Command", $cmd
         ) | Out-Null
@@ -40,7 +40,7 @@ function Start-AppServer {
     }
 
     if (Get-Command py -ErrorAction SilentlyContinue) {
-        $cmd = "Set-Location -LiteralPath '$Root'; py -m http.server $Port *>> '$LogFile'"
+        $cmd = "Set-Location -LiteralPath '$RepoRoot'; py -m http.server $Port *>> '$LogFile'"
         Start-Process powershell -ArgumentList @(
             "-NoProfile", "-WindowStyle", "Hidden", "-Command", $cmd
         ) | Out-Null
@@ -67,9 +67,9 @@ if (-not (Test-AppServer)) {
         $nl = [Environment]::NewLine
         $msg = "Local server could not start." + $nl + $nl
         $msg += "Install Node.js (npx) or Python, then try again." + $nl
-        $msg += "Opening app/index.html directly as fallback."
+        $msg += "Opening pilot/trial/index.html directly as fallback."
         Show-Message -Text $msg -Icon Warning
-        Start-Process (Join-Path $Root "app\index.html")
+        Start-Process (Join-Path $RepoRoot "pilot\trial\index.html")
         exit 1
     }
 

@@ -8,4 +8,4 @@ samples/ — 記入済みサンプル案件
 
   templates/ の空テンプレートと対をなす「完成形の参考」として使う。
 
-正本フロー: DOCS/PLAN.md
+正本フロー: plan/PLAN.md

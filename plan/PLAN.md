@@ -13,8 +13,8 @@
 
 | ファイル | 役割 |
 |---|---|
-| [`design_flow_project_plan.md`](./design_flow_project_plan.md) | 詳細版プロトタイプ。各 Step の実施内容・やり方・成果物を網羅 |
-| [`design_flow_project_plan_v2_gemini.md`](./design_flow_project_plan_v2_gemini.md) | モジュール型アーキテクチャのプロトタイプ。システム化の骨格 |
+| [`design_flow_project_plan.md`](./prototypes/design_flow_project_plan.md) | 詳細版プロトタイプ。各 Step の実施内容・やり方・成果物を網羅 |
+| [`design_flow_project_plan_v2_gemini.md`](./prototypes/design_flow_project_plan_v2_gemini.md) | モジュール型アーキテクチャのプロトタイプ。システム化の骨格 |
 
 ---
 
@@ -347,11 +347,11 @@ Project（親）
 | 2 | プロトタイプ計画書 2 件を参照用として保管 | ✅ 完了 |
 | 3 | テンプレート・HTML ガイド・サンプル案件 | ✅ 完了 |
 | 4 | v1.1 — 原稿段階化・業界フェーズ統合 | ✅ 完了 |
-| 5 | 試用システム（app/）構築 | ✅ 完了 |
+| 5 | 試用システム（pilot/trial/）構築 | ✅ 完了 |
 | 6 | 実案件 1 件で app を使って試用 | ⬜ 未着手 |
 | 7 | 試用フィードバックを本プランに反映 | ⬜ 未着手 |
 | 8 | Web アプリ プロトタイプ着手 | ⬜ 未着手 |
-| — | Staging（GitHub Pages）デプロイ設定 | ✅ 完了（push + Pages 有効化待ち） |
+| — | リポジトリ構成整理（plan / pilot / app） | ✅ 完了 |
 
 ---
 

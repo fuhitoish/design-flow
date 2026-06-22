@@ -11,4 +11,4 @@ modules/ — 制作物別モジュール（Step 5）テンプレート
 
 各フォルダに template.txt（メイン）+ サブテンプレートあり。
 
-正本: DOCS/PLAN.md §5
+正本: plan/PLAN.md §5
